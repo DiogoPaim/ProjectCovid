@@ -1,5 +1,6 @@
 package org.academiadecodigo.bitjs.projectcovid;
 
+import org.academiadecodigo.bitjs.projectcovid.field.BulletFieldPosition;
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
 import org.academiadecodigo.bitjs.projectcovid.gameobjects.Bullet;
 import org.academiadecodigo.bitjs.projectcovid.gameobjects.Civilian;
@@ -9,20 +10,20 @@ public class CollisionDetector {
 
     private Civilian[] civilians;
     private Player player;
-    private Bullet[] bullets;
+    private BulletFieldPosition[] bulletFieldPositions;
 
     // especie de paredes   private Wall[] walls   para testar se as balas ou nós batemos nas paredes
     // Falta parametros aqui ainda nao tinha as outras coisas para testar
-    public CollisionDetector(Civilian[] civilians, Bullet[] bullets) {
+    public CollisionDetector(Civilian[] civilians, BulletFieldPosition[] bullets) {
         this.civilians = civilians;
-        this.bullets = bullets;
+        this.bulletFieldPositions = bullets;
 
     }
 
     public void checkInfections() {
         for (int i = 0; i < civilians.length; i++) {
 
-            for (int j = i+1; j < civilians.length; j++) {
+            for (int j = i + 1; j < civilians.length; j++) {
 
 
                 if (civilians[i].isInfected() || civilians[j].isInfected()) {
@@ -39,19 +40,21 @@ public class CollisionDetector {
 
     }
 
-    public void checkBulletHit(){
+    public void checkBulletHit() {
 
-        for (int i = 0; i < bullets.length;i++){
-            if (civilians[i].isInfected()){
-                if (checkInRange(1,bullets[i].getFieldPosition(),civilians[i].getFieldPosition())){
-                    civilians[i].setInfected(false);
-                    System.out.println("A civilian was cured");
+        for (int i = 0; i < bulletFieldPositions.length; i++) {
+            for (int j = 0; j < civilians.length; j++) {
+                if (civilians[j].isInfected()) {
+                    int col=civilians[j].getFieldPosition().getCol();
+                    int row=civilians[j].getFieldPosition().getRow();
+                    if (bulletFieldPositions[i].equals(col,row)) {
+                        civilians[j].cure();
+                        System.out.println("A civilian was cured");
+                    }
                 }
-            }
-                System.out.println(bullets[i].getFieldPosition().getX());
-                System.out.println(civilians[i].getFieldPosition().getX());
-        }
 
+            }
+        }
     }
 
     public boolean checkInRange(int range, FieldPosition position1, FieldPosition position2) {

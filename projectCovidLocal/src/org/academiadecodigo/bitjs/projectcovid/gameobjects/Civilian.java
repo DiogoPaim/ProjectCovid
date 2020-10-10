@@ -20,8 +20,8 @@ public class Civilian {
         return infected;
     }
 
-    public void setInfected(boolean infected) {
-        this.infected = infected;
+    public void cure() {
+        this.infected = false;
     }
 
     public void infect(){

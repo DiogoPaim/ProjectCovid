@@ -1,6 +1,7 @@
 package org.academiadecodigo.bitjs.projectcovid.gameobjects;
 
 import org.academiadecodigo.bitjs.projectcovid.Direction;
+import org.academiadecodigo.bitjs.projectcovid.field.BulletFieldPosition;
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -8,21 +9,21 @@ public class Bullet {
 
     private Direction direction;
     private Picture bullet;
-    private FieldPosition fieldPosition;
 
-    public Bullet (FieldPosition position){
+
+    public Bullet (){
         this.bullet = new Picture(20,20, "resources/PinClipart.png");
-        this.fieldPosition = position;
 
-        init();
+
+        show();
     }
 
-    public void init(){
+    public void show(){
         bullet.draw();
     }
 
-    public FieldPosition getFieldPosition() {
-        return fieldPosition;
+    public Picture getBullet() {
+        return bullet;
     }
 
     public void bulletDirection (Direction direction){

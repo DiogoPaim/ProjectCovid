@@ -1,5 +1,6 @@
 package org.academiadecodigo.bitjs.projectcovid.field;
 
+import org.academiadecodigo.bitjs.projectcovid.CollisionDetector;
 import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
@@ -12,6 +13,7 @@ public class FieldPosition {
     private Field field;
     private Picture sketch;
     private Direction actualDirection;
+
 
     public FieldPosition(Field field) {
         this.field = field;
@@ -28,7 +30,7 @@ public class FieldPosition {
         //sketch.fill();
     }
 
-    public FieldPosition(int col, int row, Field field) {
+    public FieldPosition(int col, int row, Field field, Direction direction) {
         this.col = col;
         this.row = row;
         this.field = field;
@@ -36,7 +38,7 @@ public class FieldPosition {
         this.x = field.colsToX(this.col);
         this.y = field.rowsToY(this.row);
 
-        actualDirection = Direction.values()[(int) Math.random() * Direction.values().length];
+        actualDirection=direction;
         //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
         this.sketch = new Picture(this.x,this.y,"resources/up.png");
 
@@ -94,21 +96,7 @@ public class FieldPosition {
 
     }
 
-    public void moveBullet(Direction direction, int speed) {
 
-    }
-
-    public void moveBulletDown() {
-    }
-
-    public void moveBulletUp() {
-    }
-
-    public void moveBulletRight() {
-    }
-
-    public void moveBulletLeft() {
-    }
 
 
 
@@ -142,5 +130,13 @@ public class FieldPosition {
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

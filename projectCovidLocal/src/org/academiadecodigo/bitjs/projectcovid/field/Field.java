@@ -21,11 +21,11 @@ public class Field {
         field.draw();
     }
 
-    public int colsToX(int cols) {
+    public static int colsToX(int cols) {
         return PADDING + (cols * CELL_SIZE);
     }
 
-    public int rowsToY(int rows) {
+    public static int rowsToY(int rows) {
         return PADDING + (rows * CELL_SIZE);
     }
 
