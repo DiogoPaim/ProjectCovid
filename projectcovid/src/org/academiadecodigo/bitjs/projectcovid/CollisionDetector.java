@@ -21,7 +21,7 @@ public class CollisionDetector {
     public void checkInfections() {
         for (int i = 0; i < civilians.length; i++) {
 
-            for (int j = i+1; j > civilians.length; j++) {
+            for (int j = i+1; j < civilians.length; j++) {
 
 
                 if (civilians[i].isInfected() || civilians[j].isInfected()) {
