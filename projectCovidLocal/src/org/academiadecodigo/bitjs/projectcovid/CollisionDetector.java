@@ -13,8 +13,9 @@ public class CollisionDetector {
 
     // especie de paredes   private Wall[] walls   para testar se as balas ou nós batemos nas paredes
     // Falta parametros aqui ainda nao tinha as outras coisas para testar
-    public CollisionDetector(Civilian[] civilians) {
+    public CollisionDetector(Civilian[] civilians, Bullet[] bullets) {
         this.civilians = civilians;
+        this.bullets = bullets;
 
     }
 
@@ -34,6 +35,21 @@ public class CollisionDetector {
 
             }
 
+        }
+
+    }
+
+    public void checkBulletHit(){
+
+        for (int i = 0; i < bullets.length;i++){
+            if (civilians[i].isInfected()){
+                if (checkInRange(1,bullets[i].getFieldPosition(),civilians[i].getFieldPosition())){
+                    civilians[i].setInfected(false);
+                    System.out.println("A civilian was cured");
+                }
+            }
+                System.out.println(bullets[i].getFieldPosition().getX());
+                System.out.println(civilians[i].getFieldPosition().getX());
         }
 
     }

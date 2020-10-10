@@ -2,6 +2,7 @@ package org.academiadecodigo.bitjs.projectcovid.field;
 
 import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class FieldPosition {
     private int row;
@@ -9,7 +10,7 @@ public class FieldPosition {
     private int x;
     private int y;
     private Field field;
-    private Rectangle sketch;
+    private Picture sketch;
     private Direction actualDirection;
 
     public FieldPosition(Field field) {
@@ -20,9 +21,11 @@ public class FieldPosition {
         this.y = field.rowsToY(this.row);
         actualDirection = Direction.values()[(int) Math.random() * Direction.values().length];
 
-        sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
+        //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
+        this.sketch = new Picture(this.x,this.y,"resources/up.png");
+        sketch.draw();
 
-        sketch.fill();
+        //sketch.fill();
     }
 
     public FieldPosition(int col, int row, Field field) {
@@ -34,9 +37,14 @@ public class FieldPosition {
         this.y = field.rowsToY(this.row);
 
         actualDirection = Direction.values()[(int) Math.random() * Direction.values().length];
-        sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
+        //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
+        this.sketch = new Picture(this.x,this.y,"resources/up.png");
 
-        sketch.fill();
+        sketch.draw();
+
+
+
+        //sketch.fill();
 
     }
 
@@ -126,5 +134,13 @@ public class FieldPosition {
 
     public int getY() {
         return y;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
     }
 }
