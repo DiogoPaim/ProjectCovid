@@ -11,13 +11,16 @@ public class Bullet {
     private Picture bullet;
 
 
-    public Bullet (){
-        this.bullet = new Picture(20,20, "resources/PinClipart.png");
+    public Bullet (int x, int y){
+        this.bullet = new Picture(x,y, "resources/PinClipart.png");
 
 
         show();
     }
 
+    public void setInitialPos(){
+
+    }
     public void show(){
         bullet.draw();
     }

@@ -8,16 +8,22 @@ public class Field {
     private int cols;
     private int rows;
     private Rectangle field;
+    private static int width;
+    private static int height;
 
 
     public Field(int cols, int rows) {
         this.cols = cols;
         this.rows = rows;
+        this.width =cols * CELL_SIZE;
+        this.height = rows * CELL_SIZE;
+
+
 
     }
 
     public void init() {
-        this.field = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
+        this.field = new Rectangle(PADDING, PADDING, width, height);
         field.draw();
     }
 
@@ -41,4 +47,11 @@ public class Field {
         return CELL_SIZE;
     }
 
+    public int getWidth() {
+        return this.field.getWidth();
+    }
+
+    public int getHeight() {
+        return this.field.getHeight();
+    }
 }

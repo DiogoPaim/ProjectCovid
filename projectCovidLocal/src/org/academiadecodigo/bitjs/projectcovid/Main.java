@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         Civilian[] civilians =new Civilian[3];
-        BulletFieldPosition[] bullets = new BulletFieldPosition[1];
+        BulletFieldPosition[] bullets = new BulletFieldPosition[2];
 
         Field field = new Field(100, 50);
         field.init();
@@ -54,19 +54,20 @@ public class Main {
             civilian.showAccordingToDirection();
         }
         CollisionDetector collisionDetector= new CollisionDetector(civilians,bullets);
-        Bullet bullet1 = new Bullet();
-        BulletFieldPosition bullet1position= new BulletFieldPosition(collisionDetector,field,1,1,Direction.RIGHT,bullet1);
+        BulletFieldPosition bullet1position= new BulletFieldPosition(collisionDetector,field,1,3,Direction.UP);
         bullets[0]=bullet1position;
+        BulletFieldPosition bullet2position = new BulletFieldPosition(collisionDetector,field,5,20,Direction.UP);
+        bullets[1]=bullet2position;
 
-        bullets[0].moveBulletDown(3);
+        bullets[1].moveBulletRight(3);
         addDelay();
-        bullets[0].moveBulletDown(3);
+        bullets[1].moveBulletRight(3);
         addDelay();
-        bullets[0].moveBulletDown(3);
+        bullets[1].moveBulletRight(3);
         addDelay();
-        bullets[0].moveBulletDown(3);
+        bullets[1].moveBulletRight(3);
         addDelay();
-        bullets[0].moveBulletDown(3);
+        bullets[1].moveBulletRight(3);
 
         collisionDetector.checkInfections();
         System.out.println(civilians[2].isInfected()) ;
