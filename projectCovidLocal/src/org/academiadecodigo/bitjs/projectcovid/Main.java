@@ -78,7 +78,7 @@ public class Main {
 
         public static void addDelay(){
         try {
-            Thread.sleep(10);
+            Thread.sleep(25);
         }catch(Exception e){
 
         }

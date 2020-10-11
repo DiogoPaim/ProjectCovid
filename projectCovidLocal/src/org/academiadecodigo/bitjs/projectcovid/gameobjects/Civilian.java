@@ -57,9 +57,9 @@ public class Civilian {
                     moveUp();
                 } else {
                     moveDown();
-
-                    break;
                 }
+                break;
+
             case LEFT:
                 if (random > 1) {
                     moveLeft();
@@ -93,38 +93,56 @@ public class Civilian {
 
     public void moveRight() {
 
-        if (fieldPosition.getCol() < fieldPosition.getField().getCols() - 1) {
-            fieldPosition.moveRight();
-            fieldPosition.setActualDirection(Direction.RIGHT);
+
+           if (fieldPosition.moveRight()){
+               fieldPosition.setActualDirection(Direction.RIGHT);
+           }else {
+               fieldPosition.setActualDirection(Direction.LEFT);
+               fieldPosition.moveLeft();
+           }
+
             showAccordingToDirection();
-        }
+
     }
 
     public void moveLeft() {
 
-        if (fieldPosition.getCol() > 0) {
-            fieldPosition.moveLeft();
-            fieldPosition.setActualDirection(Direction.LEFT);
+
+            if(fieldPosition.moveLeft()) {
+                fieldPosition.setActualDirection(Direction.LEFT);
+            }else {
+                fieldPosition.setActualDirection(Direction.RIGHT);
+                fieldPosition.moveRight();
+            }
             showAccordingToDirection();
-        }
+
     }
 
     public void moveUp() {
 
-        if (fieldPosition.getRow() > 0) {
-            fieldPosition.moveUp();
-            fieldPosition.setActualDirection(Direction.UP);
+
+            if (fieldPosition.moveUp()){
+                fieldPosition.setActualDirection(Direction.UP);
+            }else {
+                fieldPosition.setActualDirection(Direction.DOWN);
+                fieldPosition.moveDown();
+            }
+
             showAccordingToDirection();
-        }
+
     }
 
     public void moveDown() {
 
-        if (fieldPosition.getRow() < fieldPosition.getField().getRows() - 1) {
-            fieldPosition.moveDown();
-            fieldPosition.setActualDirection(Direction.DOWN);
+
+            if(fieldPosition.moveDown()) {
+                fieldPosition.setActualDirection(Direction.DOWN);
+            }else {
+                fieldPosition.setActualDirection(Direction.UP);
+                fieldPosition.moveUp();
+            }
             showAccordingToDirection();
-        }
+
     }
 
 

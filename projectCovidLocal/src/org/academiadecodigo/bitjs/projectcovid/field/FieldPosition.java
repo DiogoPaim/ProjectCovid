@@ -40,56 +40,53 @@ public class FieldPosition {
 
 
 
-    public int moveRight() {
+    public boolean moveRight() {
+        if ((col+1)>field.getCols()-1){
+            return false;
+        }
         if (CollisionDetector.checkMovement(this.col + 1, this.row)) {
-            int lastX = this.x;
-
             this.col++;
             this.x = field.colsToX(this.col);
-
-            int difX = this.x - lastX;
-            return difX;
+            return true;
 
         }
-        return 0;
+        return false;
     }
-    public int moveLeft() {
+    public boolean moveLeft() {
+        if ((col-1)<0){
+            return false;
+        }
         if (CollisionDetector.checkMovement(this.col - 1, this.row)) {
-            int lastX = this.x;
-
             this.col--;
             this.x = field.colsToX(this.col);
-
-            int difX = this.x - lastX;
-            return difX;
+            return true;
 
         }
-        return 0;
+        return false;
     }
 
-    public int moveUp() {
+    public boolean moveUp() {
+        if ((row-1)<0){
+            return false;
+        }
         if (CollisionDetector.checkMovement(this.col , this.row-1)) {
-            int lastY = this.y;
             this.row--;
             this.y = field.rowsToY(this.row);
-
-            int difY = this.y - lastY;
-            return difY;
+            return true;
         }
-        return 0;
+        return false;
     }
 
-    public int moveDown() {
+    public boolean moveDown() {
+        if ((row+1)>field.getRows()-1){
+            return false;
+        }
         if (CollisionDetector.checkMovement(this.col, this.row + 1)) {
-            int lastY = this.y;
             this.row++;
             this.y = field.rowsToY(this.row);
-
-            int difY = this.y - lastY;
-            return difY;
-
+            return true;
         }
-        return 0;
+        return false;
     }
 
     // it is an OVERRIDE BUT it doesn't receive an object it
