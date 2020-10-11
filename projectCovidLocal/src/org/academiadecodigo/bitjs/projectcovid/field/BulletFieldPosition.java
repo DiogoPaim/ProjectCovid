@@ -20,14 +20,12 @@ public class BulletFieldPosition extends FieldPosition{
 
     }
 
-    public void moveBulletDown() {
+    public void moveBulletDown(int speed) {
         int firstY = super.getY();
-        super.setRow(super.getRow()+1);
-        collisionDetector.checkBulletHit();
-        super.setRow(super.getRow()+1);
-        collisionDetector.checkBulletHit();
-        super.setRow(super.getRow()+1);
-        collisionDetector.checkBulletHit();
+        for (int i = 0; i <= speed; i++) {
+            super.setRow(super.getRow()+1);
+            collisionDetector.checkBulletHit();
+        }
         super.setY(Field.rowsToY(super.getRow()));
         int difY= super.getY()-firstY;
         this.bullet.getBullet().translate(0,difY);

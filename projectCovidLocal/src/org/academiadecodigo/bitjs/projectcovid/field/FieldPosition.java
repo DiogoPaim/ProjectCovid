@@ -24,8 +24,8 @@ public class FieldPosition {
         actualDirection = Direction.values()[(int) Math.random() * Direction.values().length];
 
         //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
-        this.sketch = new Picture(this.x,this.y,"resources/up.png");
-        sketch.draw();
+        //this.sketch = new Picture(this.x,this.y,"resources/up.png");
+        //sketch.draw();
 
         //sketch.fill();
     }
@@ -40,9 +40,9 @@ public class FieldPosition {
 
         actualDirection=direction;
         //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
-        this.sketch = new Picture(this.x,this.y,"resources/up.png");
+      //  this.sketch = new Picture(this.x,this.y,"resources/up.png");
 
-        sketch.draw();
+        //sketch.draw();
 
 
 
@@ -106,6 +106,10 @@ public class FieldPosition {
             return true;
         }
         return false;
+    }
+
+    public Direction getActualDirection() {
+        return actualDirection;
     }
 
     public int getRow() {

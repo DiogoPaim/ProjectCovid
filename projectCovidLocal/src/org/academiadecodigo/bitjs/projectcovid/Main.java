@@ -14,11 +14,10 @@ public class Main {
         Civilian[] civilians =new Civilian[3];
         BulletFieldPosition[] bullets = new BulletFieldPosition[1];
 
-        Field field = new Field(80, 70);
+        Field field = new Field(100, 50);
         field.init();
         CivilianFactory civilianFactory = new CivilianFactory(field);
         FieldPosition fieldPosition = new FieldPosition(field);
-        Civilian civilian1 = new Civilian(fieldPosition);
         Player player = new Player(fieldPosition);
 
         Game game = new Game(player);
@@ -47,27 +46,28 @@ public class Main {
         } */
 
         civilians[1]=civilianFactory.makeCivilianClose(fieldPosition);
-        civilians[0]=civilian1;
+        civilians[0]=civilianFactory.makeCivilian();
         civilians[0].infect();
         civilians[2]=civilianFactory.makeCivilianClose();
         civilians[2].infect();
+        for(Civilian civilian :civilians){
+            civilian.showAccordingToDirection();
+        }
         CollisionDetector collisionDetector= new CollisionDetector(civilians,bullets);
         Bullet bullet1 = new Bullet();
         BulletFieldPosition bullet1position= new BulletFieldPosition(collisionDetector,field,1,1,Direction.RIGHT,bullet1);
         bullets[0]=bullet1position;
 
-        bullets[0].moveBulletDown();
+        bullets[0].moveBulletDown(3);
         addDelay();
-        bullets[0].moveBulletDown();
+        bullets[0].moveBulletDown(3);
         addDelay();
-        bullets[0].moveBulletDown();
+        bullets[0].moveBulletDown(3);
         addDelay();
-        bullets[0].moveBulletDown();
+        bullets[0].moveBulletDown(3);
         addDelay();
-        bullets[0].moveBulletDown();
-        bullets[0].moveBulletDown();
-        bullets[0].moveBulletDown();
-        bullets[0].moveBulletDown();
+        bullets[0].moveBulletDown(3);
+
         collisionDetector.checkInfections();
         System.out.println(civilians[2].isInfected()) ;
 
