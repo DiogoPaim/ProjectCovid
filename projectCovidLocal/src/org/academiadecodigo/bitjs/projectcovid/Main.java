@@ -14,7 +14,7 @@ public class Main {
         Civilian[] civilians =new Civilian[3];
         BulletFieldPosition[] bullets = new BulletFieldPosition[2];
 
-        Field field = new Field(100, 50);
+        Field field = new Field(25, 18);
         field.init();
         CivilianFactory civilianFactory = new CivilianFactory(field);
         FieldPosition fieldPosition = new FieldPosition(field);
@@ -54,20 +54,14 @@ public class Main {
             civilian.showAccordingToDirection();
         }
         CollisionDetector collisionDetector= new CollisionDetector(civilians,bullets);
-        BulletFieldPosition bullet1position= new BulletFieldPosition(collisionDetector,field,1,3,Direction.UP);
+        BulletFieldPosition bullet1position= new BulletFieldPosition(collisionDetector,field,20,15,Direction.DOWN);
         bullets[0]=bullet1position;
         BulletFieldPosition bullet2position = new BulletFieldPosition(collisionDetector,field,5,20,Direction.UP);
         bullets[1]=bullet2position;
 
-        bullets[1].moveBulletRight(3);
-        addDelay();
-        bullets[1].moveBulletRight(3);
-        addDelay();
-        bullets[1].moveBulletRight(3);
-        addDelay();
-        bullets[1].moveBulletRight(3);
-        addDelay();
-        bullets[1].moveBulletRight(3);
+        for (int i = 0; i < 6; i++) {
+            bullet1position.moveBulletUp(3);
+        }
 
         collisionDetector.checkInfections();
         System.out.println(civilians[2].isInfected()) ;

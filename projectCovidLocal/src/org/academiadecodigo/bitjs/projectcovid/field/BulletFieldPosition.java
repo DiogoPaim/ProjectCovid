@@ -25,50 +25,70 @@ public class BulletFieldPosition extends FieldPosition{
     }
 
     public void moveBulletDown(int speed) {
-        int firstY = super.getY();
+
         for (int i = 0; i <= speed; i++) {
+            int firstY = super.getY();
             super.setRow(super.getRow()+1);
             collisionDetector.checkBulletHit();
+            super.setY(Field.rowsToY(super.getRow()));
+            int difY= super.getY()-firstY;
+            this.bullet.getBullet().translate(0,difY);
+            this.bullet.show();
+            addDelay(50);
         }
-        super.setY(Field.rowsToY(super.getRow()));
-        int difY= super.getY()-firstY;
-        this.bullet.getBullet().translate(0,difY);
-        this.bullet.show();
+
     }
 
     public void moveBulletUp(int speed) {
-        int firstY = super.getY();
+
         for (int i = 0; i <= speed; i++) {
+            int firstY = super.getY();
             super.setRow(super.getRow()-1);
             collisionDetector.checkBulletHit();
+            super.setY(Field.rowsToY(super.getRow()));
+            int difY= super.getY()-firstY;
+            this.bullet.getBullet().translate(0,difY);
+            this.bullet.show();
+            addDelay(50);
         }
-        super.setY(Field.rowsToY(super.getRow()));
-        int difY= super.getY()-firstY;
-        this.bullet.getBullet().translate(0,difY);
-        this.bullet.show();
+
     }
 
     public void moveBulletRight(int speed) {
-        int firstX = super.getX();
+
         for (int i = 0; i <= speed; i++) {
+            int firstX = super.getX();
             super.setCol(super.getCol()+1);
             collisionDetector.checkBulletHit();
+            super.setX(Field.colsToX(super.getCol()));
+            int difX = super.getX()-firstX;
+            this.bullet.getBullet().translate(difX,0);
+            this.bullet.show();
+            addDelay(50);
         }
-        super.setX(Field.colsToX(super.getCol()));
-        int difX = super.getX()-firstX;
-        this.bullet.getBullet().translate(difX,0);
-        this.bullet.show();
+
     }
 
     public void moveBulletLeft(int speed) {
-        int firstX = super.getX();
+
         for (int i = 0; i <= speed; i++) {
+            int firstX = super.getX();
             super.setCol(super.getCol()-1);
             collisionDetector.checkBulletHit();
+            super.setX(Field.colsToX(super.getCol()));
+            int difX = super.getX()-firstX;
+            this.bullet.getBullet().translate(difX,0);
+            this.bullet.show();
+            addDelay(50);
         }
-        super.setX(Field.colsToX(super.getCol()));
-        int difX = super.getX()-firstX;
-        this.bullet.getBullet().translate(difX,0);
-        this.bullet.show();
+
+    }
+
+    public void addDelay(int milliseconds){
+        try {
+            Thread.sleep(milliseconds);
+        }catch (Exception e){
+
+        }
     }
 }

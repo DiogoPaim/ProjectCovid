@@ -3,8 +3,8 @@ package org.academiadecodigo.bitjs.projectcovid.field;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
 public class Field {
-    private static final int CELL_SIZE = 15;
-    private static final int PADDING = 10;
+    public static final int CELL_SIZE = 51;
+    public static final int PADDING = 10;
     private int cols;
     private int rows;
     private Rectangle field;
@@ -26,6 +26,8 @@ public class Field {
         this.field = new Rectangle(PADDING, PADDING, width, height);
         field.draw();
     }
+
+
 
     public static int colsToX(int cols) {
         return PADDING + (cols * CELL_SIZE);

@@ -1,5 +1,6 @@
-ppackage org.academiadecodigo.bitjs.projectcovid.gameobjects;
+package org.academiadecodigo.bitjs.projectcovid.gameobjects;
 
+import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.bitjs.projectcovid.field.Field;
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
@@ -7,54 +8,86 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Player {
 
     private int health;
-    private Picture player;
+    private Picture playerPicture;
     private FieldPosition fieldPosition;
 
 
     public Player(FieldPosition position) {
 
         this.fieldPosition = position;
-        this.player = new Picture(fieldPosition.getX(),fieldPosition.getY(), "resources/right.png");
+        this.playerPicture = new Picture(fieldPosition.getX(),fieldPosition.getY(), "resources/playerDown.png");
+        showAccordingToDirection();
 
 
-
-        init();
     }
 
-    public void init(){
-        player.draw();
+    public void showAccordingToDirection(){
+        playerPicture.delete();
+        switch (fieldPosition.getActualDirection()){
+            case LEFT -> playerPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/playerLeft.png");
+            case RIGHT -> playerPicture=new Picture(fieldPosition.getX(), fieldPosition.getY(),"resources/playerRight.png");
+            case UP -> playerPicture=new Picture(fieldPosition.getX(), fieldPosition.getY(),"resources/playerUp.png");
+            case DOWN -> playerPicture=new Picture(fieldPosition.getX(), fieldPosition.getY(),"resources/playerDown.png");
+        }
+
+        playerPicture.draw();
     }
 
     public void moveRight(){
-        if (fieldPosition.getCol() < fieldPosition.getField().getCols()) {
-            player.translate(15, 0);
+        if (fieldPosition.getActualDirection()!=Direction.RIGHT){
+            fieldPosition.setActualDirection(Direction.RIGHT);
+            showAccordingToDirection();
+            return;
+        }
+        if (fieldPosition.getCol() < fieldPosition.getField().getCols()-1) {
             fieldPosition.setCol(fieldPosition.getCol() + 1);
+            fieldPosition.setActualDirection(Direction.RIGHT);
+            showAccordingToDirection();
         }
         return;
     }
 
     public void moveLeft() {
+        if (fieldPosition.getActualDirection()!=Direction.LEFT){
+            fieldPosition.setActualDirection(Direction.LEFT);
+            showAccordingToDirection();
+            return;
+        }
         if (fieldPosition.getCol() > 0) {
-            player.translate(-15, 0);
             fieldPosition.setCol(fieldPosition.getCol() - 1);
+            fieldPosition.setActualDirection(Direction.LEFT);
+            showAccordingToDirection();
         }
         return;
     }
 
     public void moveUp(){
+        if (fieldPosition.getActualDirection()!=Direction.UP){
+            fieldPosition.setActualDirection(Direction.UP);
+            showAccordingToDirection();
+            return;
+        }
         if (fieldPosition.getRow() > 0) {
-            player.translate(0,- 15);
             fieldPosition.setRow(fieldPosition.getRow() - 1);
+            fieldPosition.setActualDirection(Direction.UP);
+            showAccordingToDirection();
         }
         return;
     }
 
     public void moveDown(){
-        if (fieldPosition.getRow() <fieldPosition.getField().getRows()) {
-            player.translate(0, 15);
+       if (fieldPosition.getActualDirection()!=Direction.DOWN){
+           fieldPosition.setActualDirection(Direction.DOWN);
+           showAccordingToDirection();
+           return;
+       }
+        if (fieldPosition.getRow() <fieldPosition.getField().getRows()-1) {
             fieldPosition.setRow(fieldPosition.getRow() + 1);
+            fieldPosition.setActualDirection(Direction.DOWN);
+            showAccordingToDirection();
         }
         return;
     }
+
 
 }

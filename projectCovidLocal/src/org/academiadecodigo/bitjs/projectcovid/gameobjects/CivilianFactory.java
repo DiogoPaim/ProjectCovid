@@ -22,7 +22,7 @@ public class CivilianFactory {
 
     public Civilian makeCivilianClose(){
 
-        return new Civilian(new FieldPosition(10, 20, field, Direction.LEFT));
+        return new Civilian(new FieldPosition(1, 18, field, Direction.LEFT));
     }
 }
 

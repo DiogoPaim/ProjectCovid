@@ -33,11 +33,11 @@ public class Civilian {
     }
 
     public void showAccordingToDirection(){ switch (fieldPosition.getActualDirection()){
-        case UP -> actualPicture =  new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/up.png");
-        //  case DOWN -> actualPicture= new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/down.png");
-        //   case LEFT -> actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/left.png");
-        case RIGHT -> actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/right.png");
-        default -> actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/right.png");
+        //case UP -> actualPicture =  new Picture(fieldPosition.getX(),fieldPosition.getY(),"");
+        //  case DOWN -> actualPicture= new Picture(fieldPosition.getX(),fieldPosition.getY(),"");
+        //   case LEFT -> actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"");
+        //case RIGHT -> actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"");
+        default -> actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/playerUp.png");
 
     }
     actualPicture.draw();

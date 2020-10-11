@@ -1,8 +1,6 @@
 package org.academiadecodigo.bitjs.projectcovid.field;
 
-import org.academiadecodigo.bitjs.projectcovid.CollisionDetector;
 import org.academiadecodigo.bitjs.projectcovid.Direction;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class FieldPosition {
@@ -38,12 +36,11 @@ public class FieldPosition {
         this.x = field.colsToX(this.col);
         this.y = field.rowsToY(this.row);
 
-        actualDirection=direction;
+        actualDirection = direction;
         //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
-      //  this.sketch = new Picture(this.x,this.y,"resources/up.png");
+        //  this.sketch = new Picture(this.x,this.y,"resources/up.png");
 
         //sketch.draw();
-
 
 
         //sketch.fill();
@@ -97,15 +94,16 @@ public class FieldPosition {
     }
 
 
-
-
-
     // it is an OVERRIDE BUT it doesn't receive an object it
     public boolean equals(int col, int row) {
         if (this.col == col && this.row == row) {
             return true;
         }
         return false;
+    }
+
+    public Field getField() {
+        return field;
     }
 
     public Direction getActualDirection() {
@@ -116,28 +114,32 @@ public class FieldPosition {
         return row;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
     public int getCol() {
         return col;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void setCol(int col) {
         this.col = col;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public int getX() {
+        return Field.PADDING + col * Field.CELL_SIZE;
     }
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public void setActualDirection(Direction actualDirection) {
+        this.actualDirection = actualDirection;
+    }
+
+    public int getY() {
+        return Field.PADDING + row * Field.CELL_SIZE;
     }
 
     public void setY(int y) {
