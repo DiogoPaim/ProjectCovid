@@ -5,14 +5,14 @@ import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.bitjs.projectcovid.gameobjects.Bullet;
 
 public class BulletFieldPosition extends FieldPosition{
-    private CollisionDetector collisionDetector;
+
     private Bullet bullet;
 
 
-    public BulletFieldPosition(CollisionDetector collisionDetector, Field field, int col, int row,
+    public BulletFieldPosition( Field field, int col, int row,
                                Direction direction){
         super(col,row,field,direction);
-        this.collisionDetector =collisionDetector;
+
         this.bullet=new Bullet(Field.colsToX(super.getCol()),Field.rowsToY(super.getRow()));
     }
 
@@ -29,7 +29,7 @@ public class BulletFieldPosition extends FieldPosition{
         for (int i = 0; i <= speed; i++) {
             int firstY = super.getY();
             super.setRow(super.getRow()+1);
-            collisionDetector.checkBulletHit();
+            CollisionDetector.checkBulletHit(this);
             super.setY(Field.rowsToY(super.getRow()));
             int difY= super.getY()-firstY;
             this.bullet.getBullet().translate(0,difY);
@@ -44,7 +44,7 @@ public class BulletFieldPosition extends FieldPosition{
         for (int i = 0; i <= speed; i++) {
             int firstY = super.getY();
             super.setRow(super.getRow()-1);
-            collisionDetector.checkBulletHit();
+            CollisionDetector.checkBulletHit(this);
             super.setY(Field.rowsToY(super.getRow()));
             int difY= super.getY()-firstY;
             this.bullet.getBullet().translate(0,difY);
@@ -59,7 +59,7 @@ public class BulletFieldPosition extends FieldPosition{
         for (int i = 0; i <= speed; i++) {
             int firstX = super.getX();
             super.setCol(super.getCol()+1);
-            collisionDetector.checkBulletHit();
+            CollisionDetector.checkBulletHit(this);
             super.setX(Field.colsToX(super.getCol()));
             int difX = super.getX()-firstX;
             this.bullet.getBullet().translate(difX,0);
@@ -74,7 +74,7 @@ public class BulletFieldPosition extends FieldPosition{
         for (int i = 0; i <= speed; i++) {
             int firstX = super.getX();
             super.setCol(super.getCol()-1);
-            collisionDetector.checkBulletHit();
+            CollisionDetector.checkBulletHit(this);
             super.setX(Field.colsToX(super.getCol()));
             int difX = super.getX()-firstX;
             this.bullet.getBullet().translate(difX,0);

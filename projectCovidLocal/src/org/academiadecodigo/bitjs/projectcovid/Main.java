@@ -11,7 +11,7 @@ import org.academiadecodigo.bitjs.projectcovid.gameobjects.Player;
 public class Main {
 
     public static void main(String[] args) {
-        Civilian[] civilians =new Civilian[3];
+        Civilian[] civilians =new Civilian[20];
         BulletFieldPosition[] bullets = new BulletFieldPosition[2];
 
         Field field = new Field(25, 18);
@@ -44,35 +44,41 @@ public class Main {
             Thread.sleep(200);}catch (Exception e){
             System.out.println("error in thread sleep");
         } */
+        for (int i = 0; i < civilians.length; i++) {
+            civilians[i]= civilianFactory.makeCivilian();
+        }
+        CollisionDetector.setCivilians(civilians);
+        CollisionDetector.setPlayer(player);
 
-        civilians[1]=civilianFactory.makeCivilianClose(fieldPosition);
-        civilians[0]=civilianFactory.makeCivilian();
-        civilians[0].infect();
-        civilians[2]=civilianFactory.makeCivilianClose();
-        civilians[2].infect();
         for(Civilian civilian :civilians){
             civilian.showAccordingToDirection();
         }
-        CollisionDetector collisionDetector= new CollisionDetector(civilians,bullets);
-        BulletFieldPosition bullet1position= new BulletFieldPosition(collisionDetector,field,20,15,Direction.DOWN);
+
+        BulletFieldPosition bullet1position= new BulletFieldPosition(field,20,15,Direction.DOWN);
         bullets[0]=bullet1position;
-        BulletFieldPosition bullet2position = new BulletFieldPosition(collisionDetector,field,5,20,Direction.UP);
+        BulletFieldPosition bullet2position = new BulletFieldPosition(field,5,20,Direction.UP);
         bullets[1]=bullet2position;
 
         for (int i = 0; i < 6; i++) {
             bullet1position.moveBulletUp(3);
         }
 
-        collisionDetector.checkInfections();
+        CollisionDetector.checkInfections();
         System.out.println(civilians[2].isInfected()) ;
 
-
+        while (true){
+            for (int i = 0; i < civilians.length; i++) {
+                civilians[i].move();
+                addDelay();
+            }
+        }
 
         }
 
+
         public static void addDelay(){
         try {
-            Thread.sleep(300);
+            Thread.sleep(10);
         }catch(Exception e){
 
         }

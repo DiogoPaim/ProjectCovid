@@ -1,5 +1,6 @@
 package org.academiadecodigo.bitjs.projectcovid.field;
 
+import org.academiadecodigo.bitjs.projectcovid.CollisionDetector;
 import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -9,7 +10,7 @@ public class FieldPosition {
     private int x;
     private int y;
     private Field field;
-    private Picture sketch;
+
     private Direction actualDirection;
 
 
@@ -21,11 +22,7 @@ public class FieldPosition {
         this.y = field.rowsToY(this.row);
         actualDirection = Direction.values()[(int) Math.random() * Direction.values().length];
 
-        //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
-        //this.sketch = new Picture(this.x,this.y,"resources/up.png");
-        //sketch.draw();
 
-        //sketch.fill();
     }
 
     public FieldPosition(int col, int row, Field field, Direction direction) {
@@ -37,62 +34,63 @@ public class FieldPosition {
         this.y = field.rowsToY(this.row);
 
         actualDirection = direction;
-        //sketch = new Rectangle(this.x, this.y, field.getCellSize(), field.getCellSize());
-        //  this.sketch = new Picture(this.x,this.y,"resources/up.png");
-
-        //sketch.draw();
-
-
-        //sketch.fill();
-
-    }
-
-    public void move() {
 
 
     }
 
-    public void moveRight() {
-        int lastX = this.x;
 
-        this.col++;
-        this.x = field.colsToX(this.col);
 
-        int difX = this.x - lastX;
-        sketch.translate(difX, 0);
+    public int moveRight() {
+        if (CollisionDetector.checkMovement(this.col + 1, this.row)) {
+            int lastX = this.x;
 
+            this.col++;
+            this.x = field.colsToX(this.col);
+
+            int difX = this.x - lastX;
+            return difX;
+
+        }
+        return 0;
+    }
+    public int moveLeft() {
+        if (CollisionDetector.checkMovement(this.col - 1, this.row)) {
+            int lastX = this.x;
+
+            this.col--;
+            this.x = field.colsToX(this.col);
+
+            int difX = this.x - lastX;
+            return difX;
+
+        }
+        return 0;
     }
 
-    public void moveLeft() {
-        int lastX = this.x;
+    public int moveUp() {
+        if (CollisionDetector.checkMovement(this.col , this.row-1)) {
+            int lastY = this.y;
+            this.row--;
+            this.y = field.rowsToY(this.row);
 
-        this.col--;
-        this.x = field.colsToX(this.col);
-
-        int difX = this.x - lastX;
-        sketch.translate(difX, 0);
-
+            int difY = this.y - lastY;
+            return difY;
+        }
+        return 0;
     }
 
-    public void moveUp() {
-        int lastY = this.y;
-        this.row--;
-        this.y = field.rowsToY(this.row);
+    public int moveDown() {
+        if (CollisionDetector.checkMovement(this.col, this.row + 1)) {
+            int lastY = this.y;
+            this.row++;
+            this.y = field.rowsToY(this.row);
 
-        int difY = this.y - lastY;
-        sketch.translate(0, difY);
+            int difY = this.y - lastY;
+            return difY;
+
+        }
+        return 0;
     }
-
-    public void moveDown() {
-        int lastY = this.y;
-        this.row++;
-        this.y = field.rowsToY(this.row);
-
-        int difY = this.y - lastY;
-        sketch.translate(0, difY);
-
-    }
-
 
     // it is an OVERRIDE BUT it doesn't receive an object it
     public boolean equals(int col, int row) {

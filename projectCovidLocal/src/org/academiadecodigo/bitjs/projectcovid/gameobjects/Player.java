@@ -89,5 +89,7 @@ public class Player {
         return;
     }
 
-
+    public FieldPosition getFieldPosition() {
+        return fieldPosition;
+    }
 }
