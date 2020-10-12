@@ -51,6 +51,7 @@ public class Main {
         CollisionDetector.setPlayer(player);
 
         for(Civilian civilian :civilians){
+
             civilian.showAccordingToDirection();
         }
 
@@ -65,20 +66,20 @@ public class Main {
 
         CollisionDetector.checkInfections();
         System.out.println(civilians[2].isInfected()) ;
-
+        civilians[0].infect();
         while (true){
             for (int i = 0; i < civilians.length; i++) {
                 civilians[i].move();
                 addDelay();
+                CollisionDetector.checkInfections();
             }
         }
-
         }
 
 
         public static void addDelay(){
         try {
-            Thread.sleep(25);
+            Thread.sleep(20);
         }catch(Exception e){
 
         }

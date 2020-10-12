@@ -30,7 +30,6 @@ public class BulletFieldPosition extends FieldPosition{
             int firstY = super.getY();
             super.setRow(super.getRow()+1);
             CollisionDetector.checkBulletHit(this);
-            super.setY(Field.rowsToY(super.getRow()));
             int difY= super.getY()-firstY;
             this.bullet.getBullet().translate(0,difY);
             this.bullet.show();
@@ -45,7 +44,6 @@ public class BulletFieldPosition extends FieldPosition{
             int firstY = super.getY();
             super.setRow(super.getRow()-1);
             CollisionDetector.checkBulletHit(this);
-            super.setY(Field.rowsToY(super.getRow()));
             int difY= super.getY()-firstY;
             this.bullet.getBullet().translate(0,difY);
             this.bullet.show();
@@ -60,7 +58,6 @@ public class BulletFieldPosition extends FieldPosition{
             int firstX = super.getX();
             super.setCol(super.getCol()+1);
             CollisionDetector.checkBulletHit(this);
-            super.setX(Field.colsToX(super.getCol()));
             int difX = super.getX()-firstX;
             this.bullet.getBullet().translate(difX,0);
             this.bullet.show();
@@ -75,7 +72,6 @@ public class BulletFieldPosition extends FieldPosition{
             int firstX = super.getX();
             super.setCol(super.getCol()-1);
             CollisionDetector.checkBulletHit(this);
-            super.setX(Field.colsToX(super.getCol()));
             int difX = super.getX()-firstX;
             this.bullet.getBullet().translate(difX,0);
             this.bullet.show();

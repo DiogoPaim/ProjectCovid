@@ -7,8 +7,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class FieldPosition {
     private int row;
     private int col;
-    private int x;
-    private int y;
+
     private Field field;
 
     private Direction actualDirection;
@@ -18,8 +17,6 @@ public class FieldPosition {
         this.field = field;
         this.col = (int) (Math.random() * this.field.getCols());
         this.row = (int) (Math.random() * this.field.getRows());
-        this.x = field.colsToX(this.col);
-        this.y = field.rowsToY(this.row);
         actualDirection = Direction.values()[(int) Math.random() * Direction.values().length];
 
 
@@ -29,10 +26,6 @@ public class FieldPosition {
         this.col = col;
         this.row = row;
         this.field = field;
-
-        this.x = field.colsToX(this.col);
-        this.y = field.rowsToY(this.row);
-
         actualDirection = direction;
 
 
@@ -46,9 +39,7 @@ public class FieldPosition {
         }
         if (CollisionDetector.checkMovement(this.col + 1, this.row)) {
             this.col++;
-            this.x = field.colsToX(this.col);
             return true;
-
         }
         return false;
     }
@@ -58,7 +49,6 @@ public class FieldPosition {
         }
         if (CollisionDetector.checkMovement(this.col - 1, this.row)) {
             this.col--;
-            this.x = field.colsToX(this.col);
             return true;
 
         }
@@ -71,7 +61,6 @@ public class FieldPosition {
         }
         if (CollisionDetector.checkMovement(this.col , this.row-1)) {
             this.row--;
-            this.y = field.rowsToY(this.row);
             return true;
         }
         return false;
@@ -83,7 +72,6 @@ public class FieldPosition {
         }
         if (CollisionDetector.checkMovement(this.col, this.row + 1)) {
             this.row++;
-            this.y = field.rowsToY(this.row);
             return true;
         }
         return false;
@@ -125,9 +113,6 @@ public class FieldPosition {
         return Field.PADDING + col * Field.CELL_SIZE;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public void setActualDirection(Direction actualDirection) {
         this.actualDirection = actualDirection;
@@ -137,7 +122,4 @@ public class FieldPosition {
         return Field.PADDING + row * Field.CELL_SIZE;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
 }

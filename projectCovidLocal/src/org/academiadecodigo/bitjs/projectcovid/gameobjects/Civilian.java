@@ -10,6 +10,7 @@ public class Civilian {
     private FieldPosition fieldPosition;
     private Picture actualPicture;
 
+
     public Civilian(FieldPosition position) {
         this.fieldPosition = position;
         infected = false;
@@ -35,13 +36,20 @@ public class Civilian {
 
     public void showAccordingToDirection() {
         actualPicture.delete();
-        switch (fieldPosition.getActualDirection()) {
-            case UP -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianUp.png");
-            case DOWN -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianDown.png");
-            case LEFT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianLeft.png");
-            case RIGHT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianRight.png");
-
-
+        if (isInfected()){
+            switch (fieldPosition.getActualDirection()) {
+                case UP -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedUp.png");
+                case DOWN -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedDown.png");
+                case LEFT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedLeft.png");
+                case RIGHT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedRight.png");
+            }
+        }else {
+            switch (fieldPosition.getActualDirection()) {
+                case UP -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianUp.png");
+                case DOWN -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianDown.png");
+                case LEFT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianLeft.png");
+                case RIGHT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianRight.png");
+            }
         }
         actualPicture.draw();
     }

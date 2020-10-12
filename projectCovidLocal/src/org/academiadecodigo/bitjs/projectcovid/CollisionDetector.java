@@ -23,22 +23,13 @@ public class CollisionDetector {
 
     public static void checkInfections() {
         for (int i = 0; i < civilians.length; i++) {
-
-            for (int j = i + 1; j < civilians.length; j++) {
-
-
-                if (civilians[i].isInfected() || civilians[j].isInfected()) {
-                    if (checkInRange(1, civilians[i].getFieldPosition(), civilians[j].getFieldPosition())) {
-                        civilians[i].infect();
-                        civilians[j].infect();
-                        System.out.println("a Civilian was infected");
-                    }
+            if (civilians[i].isInfected()) {
+                Civilian civilianToInfect = checkForCivilianInRange(1, civilians[i].getFieldPosition());
+                if (civilianToInfect != null) {
+                    civilianToInfect.infect();
                 }
-
             }
-
         }
-
     }
 
     public static void checkBulletHit(BulletFieldPosition bulletFieldPosition) {
@@ -56,37 +47,47 @@ public class CollisionDetector {
         }
     }
 
-    public static boolean checkMovement(int col, int row){
+    public static boolean checkMovement(int col, int row) {
         for (int i = 0; i < civilians.length; i++) {
-           if( civilians[i].getFieldPosition().getCol()==col && civilians[i].getFieldPosition().getRow()==row){
-               return false;
-           }
+            if (civilians[i].getFieldPosition().getCol() == col && civilians[i].getFieldPosition().getRow() == row) {
+                return false;
+            }
         }
-        if (player.getFieldPosition().getCol()==col&& player.getFieldPosition().getRow()==row){
+        if (player.getFieldPosition().getCol() == col && player.getFieldPosition().getRow() == row) {
             return false;
         }
-       return true;
+        return true;
 
 
     }
 
 
-    public static boolean checkInRange(int range, FieldPosition position1, FieldPosition position2) {
+    public static Civilian checkForCivilianInRange(int range, FieldPosition position1) {
 
         for (int i = 1; i <= range; i++) {
-            if (position1.equals(position2.getCol() + i, position2.getRow())) {
-                return true;
+            if (isCivilianHere(position1.getCol() + i, position1.getRow()) != null) {
+                return isCivilianHere(position1.getCol() + i, position1.getRow());
             }
-            if (position1.equals(position2.getCol() - i, position2.getRow())) {
-                return true;
+            if (isCivilianHere(position1.getCol() - i, position1.getRow()) != null) {
+                return isCivilianHere(position1.getCol() - i, position1.getRow());
             }
-            if (position1.equals(position1.getCol(), position2.getRow() + i)) {
-                return true;
+            if (isCivilianHere(position1.getCol(), position1.getRow() + i) != null) {
+                return isCivilianHere(position1.getCol(), position1.getRow() + i);
             }
-            if (position1.equals(position1.getCol(), position2.getRow() - i)) {
-                return true;
+            if (isCivilianHere(position1.getCol(), position1.getRow() - i) != null) {
+                return isCivilianHere(position1.getCol(), position1.getRow() - i);
             }
         }
-        return false;
+        return null;
+    }
+
+    public static Civilian isCivilianHere(int col, int row) {
+        boolean result = false;
+        for (Civilian civilian : civilians) {
+            if (civilian.getFieldPosition().getCol() == col && civilian.getFieldPosition().getRow() == row) {
+                return civilian;
+            }
+        }
+        return null;
     }
 }
