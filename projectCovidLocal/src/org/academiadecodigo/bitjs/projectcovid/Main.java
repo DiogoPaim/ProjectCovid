@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         Civilian[] civilians =new Civilian[20];
-        BulletFieldPosition[] bullets = new BulletFieldPosition[2];
+        BulletFieldPosition[] bullets = new BulletFieldPosition[200];
 
         Field field = new Field(25, 18);
         field.init();
@@ -69,17 +69,26 @@ public class Main {
         civilians[0].infect();
         while (true){
             for (int i = 0; i < civilians.length; i++) {
+                bullets[i]=player.shoot();
                 civilians[i].move();
-                addDelay();
+                for (int j = 0; j <bullets.length; j++) {
+                    if (bullets[j]!=null){
+                    bullets[j].moveBullet(3);
+                    }else break;
+
+                }
+
+
                 CollisionDetector.checkInfections();
             }
+            addDelay();
         }
         }
 
 
         public static void addDelay(){
         try {
-            Thread.sleep(20);
+            Thread.sleep(400);
         }catch(Exception e){
 
         }
