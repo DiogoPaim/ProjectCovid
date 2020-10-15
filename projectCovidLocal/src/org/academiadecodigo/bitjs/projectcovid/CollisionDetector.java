@@ -32,7 +32,7 @@ public class CollisionDetector {
         }
     }
 
-    public static void checkBulletHit(BulletFieldPosition bulletFieldPosition) {
+    public static boolean checkBulletHit(BulletFieldPosition bulletFieldPosition) {
 
         for (int j = 0; j < civilians.length; j++) {
             if (civilians[j].isInfected()) {
@@ -40,11 +40,15 @@ public class CollisionDetector {
                 int row = civilians[j].getFieldPosition().getRow();
                 if (bulletFieldPosition.equals(col, row)) {
                     civilians[j].cure();
+                    civilians[j].showAccordingToDirection();
                     System.out.println("A civilian was cured");
+                    bulletFieldPosition.getBullet().getBullet().delete();
+                    return true;
                 }
             }
 
         }
+        return false;
     }
 
     public static boolean checkMovement(int col, int row) {

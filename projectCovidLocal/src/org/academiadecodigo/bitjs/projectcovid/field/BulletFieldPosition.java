@@ -4,91 +4,133 @@ import org.academiadecodigo.bitjs.projectcovid.CollisionDetector;
 import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.bitjs.projectcovid.gameobjects.Bullet;
 
-public class BulletFieldPosition extends FieldPosition{
+public class BulletFieldPosition extends FieldPosition {
 
     private Bullet bullet;
 
 
-    public BulletFieldPosition( Field field, int col, int row,
-                               Direction direction){
-        super(col,row,field,direction);
+    public BulletFieldPosition(Field field, int col, int row,
+                               Direction direction) {
+        super(col, row, field, direction);
 
-        this.bullet=new Bullet(Field.colsToX(super.getCol()),Field.rowsToY(super.getRow()));
+        this.bullet = new Bullet(Field.colsToX(super.getCol()), Field.rowsToY(super.getRow()), super.getActualDirection());
     }
 
-    public void moveBullet( int speed) {
-        switch (super.getActualDirection()){
-            case LEFT -> moveBulletLeft(speed);
-            case RIGHT -> moveBulletRight(speed);
-            case DOWN -> moveBulletDown(speed);
-            case UP -> moveBulletUp(speed);
+    public boolean moveBullet(int speed) {
+        CollisionDetector.checkBulletHit(this);
+
+
+        switch (super.getActualDirection()) {
+            case LEFT:
+                return moveBulletLeft(speed);
+            case RIGHT:
+                return moveBulletRight(speed);
+            case DOWN:
+                return moveBulletDown(speed);
+            case UP:
+                return moveBulletUp(speed);
         }
+        return false;
     }
 
     public Bullet getBullet() {
         return bullet;
     }
 
-    public void moveBulletDown(int speed) {
+    public boolean moveBulletDown(int speed) {
 
         for (int i = 0; i <= speed; i++) {
             int firstY = super.getY();
-            super.setRow(super.getRow()+1);
-            CollisionDetector.checkBulletHit(this);
-            int difY= super.getY()-firstY;
-            this.bullet.getBullet().translate(0,difY);
+            if (super.getRow() + 2 > super.getField().getRows()) {
+                bullet.getBullet().delete();
+                return false;
+            }
+            super.setRow(super.getRow() + 1);
+            if (CollisionDetector.checkBulletHit(this)) {
+                bullet.getBullet().delete();
+                return false;
+            }
+            int difY = super.getY() - firstY;
+            this.bullet.getBullet().translate(0, difY);
             this.bullet.show();
-            addDelay(5);
-        }
+            addDelay(10);
 
+
+        }
+        return true;
     }
 
-    public void moveBulletUp(int speed) {
+    public boolean moveBulletUp(int speed) {
 
         for (int i = 0; i <= speed; i++) {
             int firstY = super.getY();
-            super.setRow(super.getRow()-1);
-            CollisionDetector.checkBulletHit(this);
-            int difY= super.getY()-firstY;
-            this.bullet.getBullet().translate(0,difY);
+            if (super.getRow() - 1 < 0) {
+                bullet.getBullet().delete();
+                return false;
+            }
+            super.setRow(super.getRow() - 1);
+            if (CollisionDetector.checkBulletHit(this)) {
+                bullet.getBullet().delete();
+                return false;
+            }
+            int difY = super.getY() - firstY;
+            this.bullet.getBullet().translate(0, difY);
             this.bullet.show();
-            addDelay(5);
-        }
+            addDelay(10);
 
+        }
+        return true;
     }
 
-    public void moveBulletRight(int speed) {
+    public boolean moveBulletRight(int speed) {
 
         for (int i = 0; i <= speed; i++) {
             int firstX = super.getX();
-            super.setCol(super.getCol()+1);
+            if (super.getCol() + 2 > super.getField().getCols()) {
+                bullet.getBullet().delete();
+                return false;
+            }
+            super.setCol(super.getCol() + 1);
+            if (CollisionDetector.checkBulletHit(this)) {
+                bullet.getBullet().delete();
+                return false;
+            }
             CollisionDetector.checkBulletHit(this);
-            int difX = super.getX()-firstX;
-            this.bullet.getBullet().translate(difX,0);
+            int difX = super.getX() - firstX;
+            this.bullet.getBullet().translate(difX, 0);
             this.bullet.show();
-            addDelay(5);
+            addDelay(10);
         }
-
+        return true;
     }
 
-    public void moveBulletLeft(int speed) {
+    public boolean moveBulletLeft(int speed) {
 
         for (int i = 0; i <= speed; i++) {
             int firstX = super.getX();
-            super.setCol(super.getCol()-1);
+            if (super.getCol() - 1 < 0) {
+                bullet.getBullet().delete();
+                return false;
+            }
+            super.setCol(super.getCol() - 1);
+            if (CollisionDetector.checkBulletHit(this)) {
+                bullet.getBullet().delete();
+                return false;
+            }
             CollisionDetector.checkBulletHit(this);
-            int difX = super.getX()-firstX;
-            this.bullet.getBullet().translate(difX,0);
+            int difX = super.getX() - firstX;
+            this.bullet.getBullet().translate(difX, 0);
             this.bullet.show();
-            addDelay(5);
+            addDelay(10);
         }
-
+        return true;
     }
 
-    public void addDelay(int milliseconds){
+    public void addDelay(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
-        }catch (Exception e){
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
 
         }
     }

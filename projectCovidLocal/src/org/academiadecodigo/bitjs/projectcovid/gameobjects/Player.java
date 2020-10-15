@@ -2,6 +2,7 @@ package org.academiadecodigo.bitjs.projectcovid.gameobjects;
 
 import org.academiadecodigo.bitjs.projectcovid.Direction;
 import org.academiadecodigo.bitjs.projectcovid.field.BulletFieldPosition;
+import org.academiadecodigo.bitjs.projectcovid.field.Field;
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -12,25 +13,37 @@ public class Player {
     private FieldPosition fieldPosition;
 
 
-    public Player(FieldPosition position) {
+    public Player(Field field) {
 
-        this.fieldPosition = position;
+        this.fieldPosition = new FieldPosition((int) Math.floor(field.getCols() / 2),
+                (int) Math.floor(field.getRows() / 2), field, Direction.UP);
+
         this.playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
         showAccordingToDirection();
-
-
     }
 
     public void showAccordingToDirection() {
-        playerPicture.delete();
+        if(playerPicture!=null) {
+            playerPicture.delete();
+        }
         switch (fieldPosition.getActualDirection()) {
-            case LEFT -> playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerLeft.png");
-            case RIGHT -> playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerRight.png");
-            case UP -> playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerUp.png");
-            case DOWN -> playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
+
+            case LEFT:
+                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerLeft.png");
+                break;
+            case RIGHT:
+                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerRight.png");
+                break;
+            case UP:
+                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerUp.png");
+                break;
+            case DOWN:
+                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
+                break;
         }
 
         playerPicture.draw();
+
     }
 
     public void moveRight() {
@@ -90,25 +103,27 @@ public class Player {
     }
 
     public BulletFieldPosition shoot() {
+        System.out.println("bullet shot");
+
         switch (fieldPosition.getActualDirection()) {
 
-            case UP -> {
+            case UP:
                 return new BulletFieldPosition(fieldPosition.getField(), fieldPosition.getCol()
                         , fieldPosition.getRow() - 1, Direction.UP);
-            }
-            case DOWN -> {
+
+            case DOWN:
                 return new BulletFieldPosition(fieldPosition.getField(), fieldPosition.getCol()
                         , fieldPosition.getRow() + 1, Direction.DOWN);
-            }
-            case RIGHT -> {
+            case RIGHT:
                 return new BulletFieldPosition(fieldPosition.getField(), fieldPosition.getCol() + 1
                         , fieldPosition.getRow(), Direction.RIGHT);
-            }
-            case LEFT -> {
+
+            case LEFT:
                 return new BulletFieldPosition(fieldPosition.getField(), fieldPosition.getCol() - 1
                         , fieldPosition.getRow(), Direction.LEFT);
-            }
+
         }
+
 
         return null;
     }

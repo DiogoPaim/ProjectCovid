@@ -14,7 +14,7 @@ public class Civilian {
     public Civilian(FieldPosition position) {
         this.fieldPosition = position;
         infected = false;
-        actualPicture=new Picture(fieldPosition.getX(),fieldPosition.getY(),"resources/civilianDown.png");
+        actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianDown.png");
         showAccordingToDirection();
     }
 
@@ -35,20 +35,40 @@ public class Civilian {
     }
 
     public void showAccordingToDirection() {
-        actualPicture.delete();
-        if (isInfected()){
+        if (actualPicture!=null) {
+            actualPicture.delete();
+        }
+        if (isInfected()) {
             switch (fieldPosition.getActualDirection()) {
-                case UP -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedUp.png");
-                case DOWN -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedDown.png");
-                case LEFT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedLeft.png");
-                case RIGHT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedRight.png");
+                case UP:
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedUp.png");
+                    break;
+                case DOWN:
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedDown.png");
+                    break;
+                case LEFT:
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedLeft.png");
+                    break;
+                case RIGHT:
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedRight.png");
+                    break;
+
             }
-        }else {
+        } else {
             switch (fieldPosition.getActualDirection()) {
-                case UP -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianUp.png");
-                case DOWN -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianDown.png");
-                case LEFT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianLeft.png");
-                case RIGHT -> actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianRight.png");
+                case UP:
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianUp.png");
+                    break;
+                case DOWN :
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianDown.png");
+                    break;
+                case LEFT :
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianLeft.png");
+                    break;
+                case RIGHT :
+                    actualPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianRight.png");
+                    break;
+
             }
         }
         actualPicture.draw();
@@ -102,54 +122,54 @@ public class Civilian {
     public void moveRight() {
 
 
-           if (fieldPosition.moveRight()){
-               fieldPosition.setActualDirection(Direction.RIGHT);
-           }else {
-               fieldPosition.setActualDirection(Direction.LEFT);
-               fieldPosition.moveLeft();
-           }
+        if (fieldPosition.moveRight()) {
+            fieldPosition.setActualDirection(Direction.RIGHT);
+        } else {
+            fieldPosition.setActualDirection(Direction.LEFT);
+            fieldPosition.moveLeft();
+        }
 
-            showAccordingToDirection();
+        showAccordingToDirection();
 
     }
 
     public void moveLeft() {
 
 
-            if(fieldPosition.moveLeft()) {
-                fieldPosition.setActualDirection(Direction.LEFT);
-            }else {
-                fieldPosition.setActualDirection(Direction.RIGHT);
-                fieldPosition.moveRight();
-            }
-            showAccordingToDirection();
+        if (fieldPosition.moveLeft()) {
+            fieldPosition.setActualDirection(Direction.LEFT);
+        } else {
+            fieldPosition.setActualDirection(Direction.RIGHT);
+            fieldPosition.moveRight();
+        }
+        showAccordingToDirection();
 
     }
 
     public void moveUp() {
 
 
-            if (fieldPosition.moveUp()){
-                fieldPosition.setActualDirection(Direction.UP);
-            }else {
-                fieldPosition.setActualDirection(Direction.DOWN);
-                fieldPosition.moveDown();
-            }
+        if (fieldPosition.moveUp()) {
+            fieldPosition.setActualDirection(Direction.UP);
+        } else {
+            fieldPosition.setActualDirection(Direction.DOWN);
+            fieldPosition.moveDown();
+        }
 
-            showAccordingToDirection();
+        showAccordingToDirection();
 
     }
 
     public void moveDown() {
 
 
-            if(fieldPosition.moveDown()) {
-                fieldPosition.setActualDirection(Direction.DOWN);
-            }else {
-                fieldPosition.setActualDirection(Direction.UP);
-                fieldPosition.moveUp();
-            }
-            showAccordingToDirection();
+        if (fieldPosition.moveDown()) {
+            fieldPosition.setActualDirection(Direction.DOWN);
+        } else {
+            fieldPosition.setActualDirection(Direction.UP);
+            fieldPosition.moveUp();
+        }
+        showAccordingToDirection();
 
     }
 
