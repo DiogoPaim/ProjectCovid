@@ -23,9 +23,9 @@ public class Player {
     }
 
     public void showAccordingToDirection() {
-        if(playerPicture!=null) {
+
             playerPicture.delete();
-        }
+
         switch (fieldPosition.getActualDirection()) {
 
             case LEFT:

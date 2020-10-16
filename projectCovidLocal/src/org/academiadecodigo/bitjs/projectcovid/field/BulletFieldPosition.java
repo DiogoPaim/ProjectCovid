@@ -53,7 +53,7 @@ public class BulletFieldPosition extends FieldPosition {
             int difY = super.getY() - firstY;
             this.bullet.getBullet().translate(0, difY);
             this.bullet.show();
-            addDelay(10);
+            addDelay(15);
 
 
         }
@@ -76,7 +76,7 @@ public class BulletFieldPosition extends FieldPosition {
             int difY = super.getY() - firstY;
             this.bullet.getBullet().translate(0, difY);
             this.bullet.show();
-            addDelay(10);
+            addDelay(15);
 
         }
         return true;
@@ -99,7 +99,7 @@ public class BulletFieldPosition extends FieldPosition {
             int difX = super.getX() - firstX;
             this.bullet.getBullet().translate(difX, 0);
             this.bullet.show();
-            addDelay(10);
+            addDelay(15);
         }
         return true;
     }
@@ -121,7 +121,7 @@ public class BulletFieldPosition extends FieldPosition {
             int difX = super.getX() - firstX;
             this.bullet.getBullet().translate(difX, 0);
             this.bullet.show();
-            addDelay(10);
+            addDelay(15);
         }
         return true;
     }
