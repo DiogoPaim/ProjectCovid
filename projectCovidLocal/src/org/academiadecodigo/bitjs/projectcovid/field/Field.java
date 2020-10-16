@@ -30,7 +30,7 @@ public class Field {
     }
 
     public void init() {
-        this.field = new Picture(PADDING, PADDING, "resources/mainMenu.png");
+        this.field = new Picture(PADDING, PADDING, "resources/menu_inicial.png");
         field.draw();
     }
 

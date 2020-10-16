@@ -90,7 +90,7 @@ public class Game implements KeyboardHandler {
         switch (level) {
             case level1:
                 field.deletePicture();
-                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/level1Map.png"));
+                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/level1.png"));
                 field.show();
                 actualLevel = Level.level1;
                 civilians = makeCivilians(20);
