@@ -30,6 +30,7 @@ public class Game implements KeyboardHandler {
     private Picture[] fullHeartPics;
     private Picture[] emptyHeartPics;
 
+
     public Game() {
         this.field = new Field(25, 18);
         field.init();
@@ -123,6 +124,7 @@ public class Game implements KeyboardHandler {
         }
     }
 
+
     private void displayHealthBar(int health) {
         for (Picture pic : healthBar) {
             pic.delete();
@@ -154,9 +156,14 @@ public class Game implements KeyboardHandler {
         }
     }
 
+
     public void showHealth() {
         if (player.getHealth() == 3) {
-
+            displayHealthBar(3);
+        } else if (player.getHealth() == 2) {
+            displayHealthBar(2);
+        } else if (player.getHealth() == 1) {
+            displayHealthBar(1);
         }
     }
 
