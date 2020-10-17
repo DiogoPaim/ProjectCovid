@@ -29,14 +29,14 @@ public class Civilian {
     }
 
     public void bootPictures(){
-        infectedPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedUp.png");
-        infectedPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedDown.png");
-        infectedPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedLeft.png");
-        infectedPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianInfectedRight.png");
-        civilianPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianUp.png");
-        civilianPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianDown.png");
-        civilianPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianLeft.png");
-        civilianPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/civilianRight.png");
+        infectedPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedUp.png");
+        infectedPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedDown.png");
+        infectedPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedLeft.png");
+        infectedPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedRight.png");
+        civilianPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianUp.png");
+        civilianPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianDown.png");
+        civilianPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianLeft.png");
+        civilianPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianRight.png");
         actualPicture = civilianPictureDown;
 
     }
@@ -189,6 +189,46 @@ public class Civilian {
 
         showAccordingToDirection();
 
+    }
+
+    public void setActualPicture(Picture actualPicture) {
+        this.actualPicture = actualPicture;
+    }
+
+    public void setInfectedPictureUp(Picture infectedPictureUp) {
+        this.infectedPictureUp = infectedPictureUp;
+    }
+
+    public void setInfectedPictureDown(Picture infectedPictureDown) {
+        this.infectedPictureDown = infectedPictureDown;
+    }
+
+    public void setInfectedPictureLeft(Picture infectedPictureLeft) {
+        this.infectedPictureLeft = infectedPictureLeft;
+    }
+
+    public void setInfectedPictureRight(Picture infectedPictureRight) {
+        this.infectedPictureRight = infectedPictureRight;
+    }
+
+    public void setCivilianPictureUp(Picture civilianPictureUp) {
+        this.civilianPictureUp = civilianPictureUp;
+    }
+
+    public void setCivilianPictureDown(Picture civilianPictureDown) {
+        this.civilianPictureDown = civilianPictureDown;
+    }
+
+    public void setCivilianPictureLeft(Picture civilianPictureLeft) {
+        this.civilianPictureLeft = civilianPictureLeft;
+    }
+
+    public void setCivilianPictureRight(Picture civilianPictureRight) {
+        this.civilianPictureRight = civilianPictureRight;
+    }
+
+    public Picture getCivilianPictureDown() {
+        return civilianPictureDown;
     }
 
     public void moveDown() {

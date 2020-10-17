@@ -11,8 +11,9 @@ public class CivilianFactory {
         this.field=field;
     }
     public Civilian makeCivilian(){
+        double random = Math.random();
 
-        return new Civilian(new FieldPosition(field));
+        return (random < 0.5) ? new Civilian(new FieldPosition(field)) : new CivilianRapper(new FieldPosition(field));
 
     }
     public Civilian makeCivilianClose(FieldPosition position){

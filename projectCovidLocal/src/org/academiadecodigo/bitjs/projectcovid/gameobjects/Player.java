@@ -22,10 +22,10 @@ public class Player {
         this.health = 3;
         this.fieldPosition = new FieldPosition((int) Math.floor(field.getCols() / 2),
                 (int) Math.floor(field.getRows() / 2), field, Direction.UP);
-        playerPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerLeft.png");
-        playerPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerRight.png");
-        playerPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerUp.png");
-        playerPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
+        playerPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Player/playerLeft.png");
+        playerPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Player/playerRight.png");
+        playerPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Player/playerUp.png");
+        playerPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Player/playerDown.png");
         this.playerPicture = playerPictureDown;
         showAccordingToDirection();
     }
