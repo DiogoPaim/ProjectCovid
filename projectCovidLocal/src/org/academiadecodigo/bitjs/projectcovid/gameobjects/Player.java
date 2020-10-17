@@ -15,10 +15,11 @@ public class Player {
     private Picture playerPictureRight;
     private Picture playerPictureDown;
     private Picture playerPictureUp;
+    private int playerImmunity;
 
 
     public Player(Field field) {
-
+        this.playerImmunity=0;
         this.health = 3;
         this.fieldPosition = new FieldPosition((int) Math.floor(field.getCols() / 2),
                 (int) Math.floor(field.getRows() / 2), field, Direction.UP);
@@ -35,10 +36,9 @@ public class Player {
             playerPicture.delete();
 
         switch (fieldPosition.getActualDirection()) {
-
             case LEFT:
-              playerPictureLeft.translate(fieldPosition.getX()-playerPictureLeft.getX(), fieldPosition.getY()-playerPictureLeft.getY());
-              playerPicture=playerPictureLeft;
+                playerPictureLeft.translate(fieldPosition.getX()-playerPictureLeft.getX(), fieldPosition.getY()-playerPictureLeft.getY());
+                playerPicture=playerPictureLeft;
                 break;
             case RIGHT:
                 playerPictureRight.translate(fieldPosition.getX()-playerPictureRight.getX(), fieldPosition.getY()-playerPictureRight.getY());
@@ -53,7 +53,9 @@ public class Player {
                 playerPicture=playerPictureDown;
                 break;
         }
-
+        if (playerImmunity>0){
+            playerImmunity--;
+        }
         playerPicture.draw();
 
     }
@@ -140,8 +142,20 @@ public class Player {
         return null;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getHealth(){
         return health;
+    }
+
+    public void setPlayerImmunity(int playerImmunity) {
+        this.playerImmunity = playerImmunity;
+    }
+
+    public int getPlayerImmunity() {
+        return playerImmunity;
     }
 
     public FieldPosition getFieldPosition() {

@@ -24,6 +24,12 @@ public class CollisionDetector {
     public static void checkInfections() {
         for (int i = 0; i < civilians.length; i++) {
             if (civilians[i].isInfected()) {
+                if (checkForPlayerInRange(1,civilians[i].getFieldPosition())){
+                    if(player.getPlayerImmunity()==0) {
+                        player.setHealth(player.getHealth() - 1);
+                        player.setPlayerImmunity(3);
+                    }
+                }
                 Civilian civilianToInfect = checkForCivilianInRange(1, civilians[i].getFieldPosition());
                 if (civilianToInfect != null) {
                     civilianToInfect.infect();
@@ -85,13 +91,38 @@ public class CollisionDetector {
         return null;
     }
 
+    public static boolean checkForPlayerInRange(int range, FieldPosition position){
+        for (int i = 1; i <= range; i++) {
+            if (isPlayerHere(position.getCol() + i, position.getRow())) {
+                return true;
+            }
+            if (isPlayerHere(position.getCol() - i, position.getRow())) {
+                return true;
+            }
+            if (isPlayerHere(position.getCol() , position.getRow()+i)) {
+                return true;
+            }
+            if (isPlayerHere(position.getCol() , position.getRow()-i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static Civilian isCivilianHere(int col, int row) {
-        boolean result = false;
+
         for (Civilian civilian : civilians) {
             if (civilian.getFieldPosition().getCol() == col && civilian.getFieldPosition().getRow() == row) {
                 return civilian;
             }
         }
         return null;
+    }
+    public static boolean isPlayerHere(int col,int row){
+        if (player.getFieldPosition().getCol()==col && player.getFieldPosition().getRow()== row){
+            return true;
+        }
+        return false;
     }
 }

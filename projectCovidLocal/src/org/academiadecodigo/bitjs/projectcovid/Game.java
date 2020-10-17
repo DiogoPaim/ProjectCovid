@@ -83,6 +83,7 @@ public class Game implements KeyboardHandler {
                     }
                 }
                 CollisionDetector.checkInfections();
+                showHealth();
                 civilians[i].move();
                 addDelay();
             }
@@ -126,8 +127,11 @@ public class Game implements KeyboardHandler {
 
 
     private void displayHealthBar(int health) {
-        for (Picture pic : healthBar) {
-            pic.delete();
+        for (int i = 0; i <healthBar.length ; i++) {
+
+            if (healthBar[i]!= null) {
+                healthBar[i].delete();
+            }
         }
         switch (health) {
             case 1:
@@ -151,8 +155,9 @@ public class Game implements KeyboardHandler {
                 healthBar[2] = emptyHeartPics[2];
                 break;
         }
-        for (Picture pic : healthBar) {
-            pic.draw();
+        for (int i = 0; i < healthBar.length; i++) {
+
+            healthBar[i].draw();
         }
     }
 
