@@ -24,14 +24,19 @@ public class Game implements KeyboardHandler {
     private Civilian[] civilians;
     private Field field;
     private CivilianFactory civilianFactory;
+    private Picture[] healthBar;
     private boolean started;
     private Level actualLevel;
+    private Picture[] fullHeartPics;
+    private Picture[] emptyHeartPics;
+
 
     public Game() {
         this.field = new Field(25, 18);
         field.init();
         civilianFactory = new CivilianFactory(field);
         this.player = new Player(field);
+        healthBar = new Picture[3];
 
     }
 
@@ -46,10 +51,8 @@ public class Game implements KeyboardHandler {
 
     public void init() {
         bootstrap();
-
-
+        initHealthPics();
         CollisionDetector.setPlayer(player);
-
 
         while (!started) {
             field.init();
@@ -70,16 +73,17 @@ public class Game implements KeyboardHandler {
             for (int i = 0; i < civilians.length; i++) {
                 if (bullet != null) {
                     while (bullet != null) {
-                       
+
                         if (!bullet.moveBullet(3)) {
                             bullet.getBullet().getBullet().delete();
                             bullet = null;
                         }
 
-                      
+
                     }
                 }
                 CollisionDetector.checkInfections();
+                showHealth();
                 civilians[i].move();
                 addDelay();
             }
@@ -98,10 +102,7 @@ public class Game implements KeyboardHandler {
                 civilians[0].infect();
                 civilians[0].showAccordingToDirection();
                 CollisionDetector.setCivilians(civilians);
-
                 level1Cycle();
-
-
                 field.show();
                 break;
             case level2:
@@ -124,9 +125,50 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public void showHealth(){
-        if(player.getHealth() == 3){
 
+    private void displayHealthBar(int health) {
+        for (int i = 0; i <healthBar.length ; i++) {
+
+            if (healthBar[i]!= null) {
+                healthBar[i].delete();
+            }
+        }
+        switch (health) {
+            case 1:
+                healthBar[0] = fullHeartPics[0];
+                healthBar[1] = emptyHeartPics[1];
+                healthBar[2] = emptyHeartPics[2];
+                break;
+            case 2:
+                healthBar[0] = fullHeartPics[0];
+                healthBar[1] = fullHeartPics[1];
+                healthBar[2] = emptyHeartPics[2];
+                break;
+            case 3:
+                healthBar[0] = fullHeartPics[0];
+                healthBar[1] = fullHeartPics[1];
+                healthBar[2] = fullHeartPics[2];
+                break;
+            default:
+                healthBar[0] = emptyHeartPics[0];
+                healthBar[1] = emptyHeartPics[1];
+                healthBar[2] = emptyHeartPics[2];
+                break;
+        }
+        for (int i = 0; i < healthBar.length; i++) {
+
+            healthBar[i].draw();
+        }
+    }
+
+
+    public void showHealth() {
+        if (player.getHealth() == 3) {
+            displayHealthBar(3);
+        } else if (player.getHealth() == 2) {
+            displayHealthBar(2);
+        } else if (player.getHealth() == 1) {
+            displayHealthBar(1);
         }
     }
 
@@ -208,6 +250,16 @@ public class Game implements KeyboardHandler {
 
     }
 
+    private void initHealthPics() {
+        fullHeartPics = new Picture[3];
+        emptyHeartPics = new Picture[3];
+        for (int i = 0; i < fullHeartPics.length; i++) {
+            fullHeartPics[i] = new Picture(Field.colsToX(field.getCols() - 3 + i), Field.PADDING, "resources/fullHeart.png");
+            emptyHeartPics[i] = new Picture(Field.colsToX(field.getCols() - 3 + i), Field.PADDING, "resources/emptyHeart.png");
+            healthBar[i]=fullHeartPics[i];
+        }
+
+    }
 
     public enum Level {
         mainMenu,

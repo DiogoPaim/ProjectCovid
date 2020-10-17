@@ -20,10 +20,18 @@ public class Bullet {
 
     public void initPicture() {
         switch (direction) {
-            case UP -> bullet = new Picture(x, y, "resources/Bullet/syringeUp.png");
-            case DOWN -> bullet = new Picture(x, y, "resources/Bullet/syringeDown.png");
-            case RIGHT -> bullet = new Picture(x, y, "resources/Bullet/syringeRight.png");
-            case LEFT -> bullet = new Picture(x, y, "resources/Bullet/syringeLeft.png");
+            case UP:
+                bullet = new Picture(x, y, "resources/Bullet/syringeUp.png");
+                break;
+            case DOWN:
+                bullet = new Picture(x, y, "resources/Bullet/syringeDown.png");
+                break;
+            case RIGHT:
+                bullet = new Picture(x, y, "resources/Bullet/syringeRight.png");
+                break;
+            case LEFT:
+                bullet = new Picture(x, y, "resources/Bullet/syringeLeft.png");
+                break;
         }
     }
 
