@@ -11,34 +11,46 @@ public class Player {
     private int health;
     private Picture playerPicture;
     private FieldPosition fieldPosition;
+    private Picture playerPictureLeft;
+    private Picture playerPictureRight;
+    private Picture playerPictureDown;
+    private Picture playerPictureUp;
 
 
     public Player(Field field) {
 
+
         this.fieldPosition = new FieldPosition((int) Math.floor(field.getCols() / 2),
                 (int) Math.floor(field.getRows() / 2), field, Direction.UP);
-
-        this.playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
+        playerPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerLeft.png");
+        playerPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerRight.png");
+        playerPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerUp.png");
+        playerPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
+        this.playerPicture = playerPictureDown;
         showAccordingToDirection();
     }
 
     public void showAccordingToDirection() {
 
             playerPicture.delete();
-   
+
         switch (fieldPosition.getActualDirection()) {
 
             case LEFT:
-                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerLeft.png");
+              playerPictureLeft.translate(fieldPosition.getX()-playerPictureLeft.getX(), fieldPosition.getY()-playerPictureLeft.getY());
+              playerPicture=playerPictureLeft;
                 break;
             case RIGHT:
-                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerRight.png");
+                playerPictureRight.translate(fieldPosition.getX()-playerPictureRight.getX(), fieldPosition.getY()-playerPictureRight.getY());
+                playerPicture=playerPictureRight;
                 break;
             case UP:
-                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerUp.png");
+                playerPictureUp.translate(fieldPosition.getX()-playerPictureUp.getX(), fieldPosition.getY()-playerPictureUp.getY());
+                playerPicture=playerPictureUp;
                 break;
             case DOWN:
-                playerPicture = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerDown.png");
+                playerPictureDown.translate(fieldPosition.getX()-playerPictureDown.getX(), fieldPosition.getY()-playerPictureDown.getY());
+                playerPicture=playerPictureDown;
                 break;
         }
 
@@ -57,7 +69,7 @@ public class Player {
             fieldPosition.setActualDirection(Direction.RIGHT);
             showAccordingToDirection();
         }
-        return;
+
     }
 
     public void moveLeft() {
@@ -71,7 +83,7 @@ public class Player {
             fieldPosition.setActualDirection(Direction.LEFT);
             showAccordingToDirection();
         }
-        return;
+
     }
 
     public void moveUp() {
@@ -85,7 +97,7 @@ public class Player {
             fieldPosition.setActualDirection(Direction.UP);
             showAccordingToDirection();
         }
-        return;
+
     }
 
     public void moveDown() {
@@ -99,7 +111,7 @@ public class Player {
             fieldPosition.setActualDirection(Direction.DOWN);
             showAccordingToDirection();
         }
-        return;
+
     }
 
     public BulletFieldPosition shoot() {
