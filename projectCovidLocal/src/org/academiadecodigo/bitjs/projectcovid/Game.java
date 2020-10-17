@@ -27,6 +27,7 @@ public class Game implements KeyboardHandler {
     private boolean started;
     private Level actualLevel;
 
+
     public Game() {
         this.field = new Field(25, 18);
         field.init();
@@ -70,13 +71,13 @@ public class Game implements KeyboardHandler {
             for (int i = 0; i < civilians.length; i++) {
                 if (bullet != null) {
                     while (bullet != null) {
-                       
+
                         if (!bullet.moveBullet(3)) {
                             bullet.getBullet().getBullet().delete();
                             bullet = null;
                         }
 
-                      
+
                     }
                 }
                 CollisionDetector.checkInfections();
@@ -124,9 +125,17 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public void showHealth(){
-        if(player.getHealth() == 3){
+    private int displayHealthBar(int health) {
 
+    }
+
+    public void showHealth() {
+        if (player.getHealth() == 3) {
+            displayHealthBar(3);
+        } else if (player.getHealth() == 2) {
+            displayHealthBar(2);
+        } else if (player.getHealth() == 1) {
+            displayHealthBar(1);
         }
     }
 
