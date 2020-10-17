@@ -16,6 +16,13 @@ public class CivilianFactory {
         return (random < 0.5) ? new Civilian(new FieldPosition(field)) : new CivilianRapper(new FieldPosition(field));
 
     }
+
+    public Civilian makeCivilianLevel2(){
+        double random = Math.random();
+
+        return (random < 0.5) ? new CivilianGrandma(new FieldPosition(field)) : new CivilianPolice(new FieldPosition(field));
+    }
+
     public Civilian makeCivilianClose(FieldPosition position){
 
         return new Civilian(new FieldPosition(position.getCol()+1, position.getRow(), field, Direction.LEFT));

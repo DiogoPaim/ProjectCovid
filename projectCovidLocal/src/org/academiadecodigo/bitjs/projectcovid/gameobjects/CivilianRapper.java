@@ -1,6 +1,4 @@
 package org.academiadecodigo.bitjs.projectcovid.gameobjects;
-
-
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
