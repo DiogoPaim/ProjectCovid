@@ -20,16 +20,19 @@ public class Game implements KeyboardHandler {
     private KeyboardEvent down;
     private KeyboardEvent space;
     private KeyboardEvent s;
+    private KeyboardEvent x;
     private BulletFieldPosition bullet;
     private Civilian[] civilians;
     private Field field;
     private CivilianFactory civilianFactory;
     private Picture[] healthBar;
     private boolean started;
+    private boolean startLvl2;
     private Level actualLevel;
     private Picture[] fullHeartPics;
     private Picture[] emptyHeartPics;
     private boolean endLevelCondition;
+
 
     public Game() {
         this.field = new Field(25, 18);
@@ -59,10 +62,10 @@ public class Game implements KeyboardHandler {
     public void start() {
         setLevelMapLogic(Level.mainMenu);
         setLevelMapLogic(Level.level1);
-        if (actualLevel==Level.endMenu){
+        if(actualLevel==Level.betweenLevelsMenu){
+            setLevelMapLogic(Level.betweenLevelsMenu);
+        } else if (actualLevel==Level.endMenu){
             setLevelMapLogic(Level.endMenu);
-        }else if (actualLevel==Level.level2){
-            setLevelMapLogic(Level.level2);
         }
 
     }
@@ -91,7 +94,7 @@ public class Game implements KeyboardHandler {
                 actualLevel=Level.endMenu;
             }
             if(checkForEndLevel()){
-                setLevelMapLogic(Level.level2);
+                setLevelMapLogic(Level.betweenLevelsMenu);
             }
         }
     }
@@ -136,8 +139,8 @@ public class Game implements KeyboardHandler {
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Levels/level1.png"));
                 field.show();
-                civilians = makeCivilians(20);
-                actualLevel=Level.level1;
+                civilians = makeCivilians(20,1);
+                actualLevel = Level.level1;
                 drawCivilians();
                 civilians[0].infect();
                 civilians[0].showAccordingToDirection();
@@ -146,11 +149,11 @@ public class Game implements KeyboardHandler {
                 field.show();
                 break;
             case level2:
-                actualLevel=Level.level2;
+                actualLevel = Level.level2;
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Levels/level2.png"));
                 field.show();
-                civilians = makeCivilians(30);
+                civilians = makeCivilians(30,2);
                 drawCivilians();
                 civilians[0].infect();
                 civilians[1].infect();
@@ -159,6 +162,20 @@ public class Game implements KeyboardHandler {
                 CollisionDetector.setCivilians(civilians);
                 level2Cycle();
                 field.show();
+                break;
+            case betweenLevelsMenu:
+                for (int i = 0; i < civilians.length; i++) {
+                    civilians[i].deleteCivilianPic();
+                    civilians[i] = null;
+                }
+                field.deletePicture();
+                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Menus/win_menu.png"));
+                // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
+                field.show();
+                while (!startLvl2){
+                    addDelay();
+                }
+                setLevelMapLogic(Level.level2);
                 break;
             case endMenu:
                 for (int i = 0; i < civilians.length; i++) {
@@ -248,10 +265,14 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public Civilian[] makeCivilians(int numberOfCivilians) {
+    public Civilian[] makeCivilians(int numberOfCivilians,int level) {
         Civilian[] newCivilians = new Civilian[numberOfCivilians];
         for (int i = 0; i < numberOfCivilians; i++) {
-            newCivilians[i] = civilianFactory.makeCivilian();
+            if (level==1) {
+                newCivilians[i] = civilianFactory.makeCivilian();
+            }else {
+                newCivilians[i]= civilianFactory.makeCivilianLevel2();
+            }
         }
         return newCivilians;
     }
@@ -289,6 +310,11 @@ public class Game implements KeyboardHandler {
         s.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         s.setKey(KeyboardEvent.KEY_S);
         keyboard.addEventListener(s);
+
+        x = new KeyboardEvent();
+        x.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        x.setKey(KeyboardEvent.KEY_X);
+        keyboard.addEventListener(x);
     }
 
     @Override
@@ -296,6 +322,10 @@ public class Game implements KeyboardHandler {
 
         if (keyboardEvent.getKey() == s.getKey()) {
             started = true;
+        }
+        if (keyboardEvent.getKey()== x.getKey()){
+
+            startLvl2=true;
         }
         if(actualLevel!=Level.mainMenu&&actualLevel!=Level.endMenu) {
             if (keyboardEvent.getKey() == right.getKey()) {
@@ -344,6 +374,7 @@ public class Game implements KeyboardHandler {
         level1,
         level2,
         endMenu,
-        winMenu
+        winMenu,
+        betweenLevelsMenu
     }
 }

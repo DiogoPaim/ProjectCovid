@@ -112,9 +112,10 @@ public class CollisionDetector {
 
     public static Civilian isCivilianHere(int col, int row) {
 
-        for (Civilian civilian : civilians) {
-            if (civilian.getFieldPosition().getCol() == col && civilian.getFieldPosition().getRow() == row) {
-                return civilian;
+        for (int i = 0; i < civilians.length; i++) {
+
+            if (civilians[i].getFieldPosition().getCol() == col && civilians[i].getFieldPosition().getRow() == row) {
+                return civilians[i];
             }
         }
         return null;

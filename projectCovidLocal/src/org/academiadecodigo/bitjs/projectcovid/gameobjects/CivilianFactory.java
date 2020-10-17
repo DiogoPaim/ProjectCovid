@@ -22,15 +22,5 @@ public class CivilianFactory {
 
         return (random < 0.5) ? new CivilianGrandma(new FieldPosition(field)) : new CivilianPolice(new FieldPosition(field));
     }
-
-    public Civilian makeCivilianClose(FieldPosition position){
-
-        return new Civilian(new FieldPosition(position.getCol()+1, position.getRow(), field, Direction.LEFT));
-    }
-
-    public Civilian makeCivilianClose(){
-
-        return new Civilian(new FieldPosition(1, 18, field, Direction.LEFT));
-    }
 }
 

@@ -19,8 +19,6 @@ public class Civilian {
     private Picture civilianPictureRight;
 
 
-
-
     public Civilian(FieldPosition position) {
         this.fieldPosition = position;
         infected = false;
@@ -28,7 +26,7 @@ public class Civilian {
         showAccordingToDirection();
     }
 
-    public void bootPictures(){
+    public void bootPictures() {
         infectedPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedUp.png");
         infectedPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedDown.png");
         infectedPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedLeft.png");
@@ -40,6 +38,7 @@ public class Civilian {
         actualPicture = civilianPictureDown;
 
     }
+
     public FieldPosition getFieldPosition() {
         return fieldPosition;
     }
@@ -57,54 +56,55 @@ public class Civilian {
     }
 
     public void showAccordingToDirection() {
-        if (actualPicture!=null) {
+        if (actualPicture != null) {
             System.out.println(actualPicture);
             actualPicture.delete();
-        }
+      }
         if (isInfected()) {
             switch (fieldPosition.getActualDirection()) {
                 case UP:
-                    infectedPictureUp.translate(fieldPosition.getX()-infectedPictureUp.getX(),fieldPosition.getY()-infectedPictureUp.getY());
-                    actualPicture=infectedPictureUp;
+                    infectedPictureUp.translate(fieldPosition.getX() - infectedPictureUp.getX(), fieldPosition.getY() - infectedPictureUp.getY());
+                    actualPicture = infectedPictureUp;
                     break;
                 case DOWN:
-                    infectedPictureDown.translate(fieldPosition.getX()-infectedPictureDown.getX(),fieldPosition.getY()-infectedPictureDown.getY());
-                    actualPicture=infectedPictureDown;
+                    infectedPictureDown.translate(fieldPosition.getX() - infectedPictureDown.getX(), fieldPosition.getY() - infectedPictureDown.getY());
+                    actualPicture = infectedPictureDown;
                     break;
                 case LEFT:
-                    infectedPictureLeft.translate(fieldPosition.getX()-infectedPictureLeft.getX(),fieldPosition.getY()-infectedPictureLeft.getY());
-                    actualPicture=infectedPictureLeft;
+                    infectedPictureLeft.translate(fieldPosition.getX() - infectedPictureLeft.getX(), fieldPosition.getY() - infectedPictureLeft.getY());
+                    actualPicture = infectedPictureLeft;
                     break;
                 case RIGHT:
-                    infectedPictureRight.translate(fieldPosition.getX()-infectedPictureRight.getX(),fieldPosition.getY()-infectedPictureRight.getY());
-                    actualPicture=infectedPictureRight;
+                    infectedPictureRight.translate(fieldPosition.getX() - infectedPictureRight.getX(), fieldPosition.getY() - infectedPictureRight.getY());
+                    actualPicture = infectedPictureRight;
                     break;
 
             }
         } else {
             switch (fieldPosition.getActualDirection()) {
                 case UP:
-                   civilianPictureUp.translate(fieldPosition.getX()-civilianPictureUp.getX(),fieldPosition.getY()-civilianPictureUp.getY());
-                   actualPicture=civilianPictureUp;
+                    civilianPictureUp.translate(fieldPosition.getX() - civilianPictureUp.getX(), fieldPosition.getY() - civilianPictureUp.getY());
+                    actualPicture = civilianPictureUp;
                     break;
-                case DOWN :
-                    civilianPictureDown.translate(fieldPosition.getX()-civilianPictureDown.getX(),fieldPosition.getY()-civilianPictureDown.getY());
-                    actualPicture=civilianPictureDown;
+                case DOWN:
+                    civilianPictureDown.translate(fieldPosition.getX() - civilianPictureDown.getX(), fieldPosition.getY() - civilianPictureDown.getY());
+                    actualPicture = civilianPictureDown;
                     break;
-                case LEFT :
-                    civilianPictureLeft.translate(fieldPosition.getX()-civilianPictureLeft.getX(),fieldPosition.getY()-civilianPictureLeft.getY());
-                    actualPicture=civilianPictureLeft;
+                case LEFT:
+                    civilianPictureLeft.translate(fieldPosition.getX() - civilianPictureLeft.getX(), fieldPosition.getY() - civilianPictureLeft.getY());
+                    actualPicture = civilianPictureLeft;
                     break;
-                case RIGHT :
-                    civilianPictureRight.translate(fieldPosition.getX()-civilianPictureRight.getX(),fieldPosition.getY()-civilianPictureRight.getY());
-                    actualPicture=civilianPictureRight;
+                case RIGHT:
+                    civilianPictureRight.translate(fieldPosition.getX() - civilianPictureRight.getX(), fieldPosition.getY() - civilianPictureRight.getY());
+                    actualPicture = civilianPictureRight;
                     break;
 
             }
         }
         actualPicture.draw();
     }
-    public void deleteCivilianPic(){
+
+    public void deleteCivilianPic() {
         this.actualPicture.delete();
     }
 
@@ -218,10 +218,6 @@ public class Civilian {
         this.civilianPictureUp = civilianPictureUp;
     }
 
-    public void setCivilianPictureDown(Picture civilianPictureDown) {
-        this.civilianPictureDown = civilianPictureDown;
-    }
-
     public void setCivilianPictureLeft(Picture civilianPictureLeft) {
         this.civilianPictureLeft = civilianPictureLeft;
     }
@@ -232,6 +228,10 @@ public class Civilian {
 
     public Picture getCivilianPictureDown() {
         return civilianPictureDown;
+    }
+
+    public void setCivilianPictureDown(Picture civilianPictureDown) {
+        this.civilianPictureDown = civilianPictureDown;
     }
 
     public void moveDown() {
