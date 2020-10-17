@@ -28,7 +28,7 @@ public class Player {
         playerPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Player/playerUp.png");
         playerPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Player/playerDown.png");
         this.playerPicture = playerPictureDown;
-        showAccordingToDirection();
+
     }
 
     public void showAccordingToDirection() {

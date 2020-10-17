@@ -29,11 +29,11 @@ public class Game implements KeyboardHandler {
     private Level actualLevel;
     private Picture[] fullHeartPics;
     private Picture[] emptyHeartPics;
-
+    private boolean endLevelCondition;
 
     public Game() {
         this.field = new Field(25, 18);
-        field.init();
+
         civilianFactory = new CivilianFactory(field);
         this.player = new Player(field);
         healthBar = new Picture[3];
@@ -54,32 +54,57 @@ public class Game implements KeyboardHandler {
         initHealthPics();
         CollisionDetector.setPlayer(player);
 
-        while (!started) {
-            field.init();
-        }
     }
 
     public void start() {
+        setLevelMapLogic(Level.mainMenu);
         setLevelMapLogic(Level.level1);
-
+        if (actualLevel==Level.endMenu){
+            setLevelMapLogic(Level.endMenu);
+        }else if (actualLevel==Level.level2){
+            setLevelMapLogic(Level.level2);
+        }
 
     }
 
     private void level1Cycle() {
 
-
+        System.out.println("LEVEL1CYCLE");
         while (actualLevel == Level.level1) {
             player.showAccordingToDirection();
             for (int i = 0; i < civilians.length; i++) {
+                civilians[i].move();
                 if (bullet != null) {
                     while (bullet != null) {
-
                         if (!bullet.moveBullet(3)) {
                             bullet.getBullet().getBullet().delete();
                             bullet = null;
                         }
+                    }
+                }
+                CollisionDetector.checkInfections();
+                showHealth();
 
-
+                addDelay();
+            }
+            if (player.getHealth()==0){
+                actualLevel=Level.endMenu;
+            }
+            if(checkForEndLevel()){
+                setLevelMapLogic(Level.level2);
+            }
+        }
+    }
+    private void level2Cycle(){
+        while (actualLevel == Level.level2) {
+            player.showAccordingToDirection();
+            for (int i = 0; i < civilians.length; i++) {
+                if (bullet != null) {
+                    while (bullet != null) {
+                        if (!bullet.moveBullet(3)) {
+                            bullet.getBullet().getBullet().delete();
+                            bullet = null;
+                        }
                     }
                 }
                 CollisionDetector.checkInfections();
@@ -87,17 +112,32 @@ public class Game implements KeyboardHandler {
                 civilians[i].move();
                 addDelay();
             }
+            if (player.getHealth()==0){
+                actualLevel=Level.endMenu;
+            }
+            if(checkForEndLevel()){
+                setLevelMapLogic(Level.winMenu);
+            }
         }
     }
 
+
+
+
+
     private void setLevelMapLogic(Level level) {
         switch (level) {
+            case mainMenu:
+                while (!started) {
+                    field.init();
+                }
+                break;
             case level1:
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Levels/level1.png"));
                 field.show();
-                actualLevel = Level.level1;
                 civilians = makeCivilians(20);
+                actualLevel=Level.level1;
                 drawCivilians();
                 civilians[0].infect();
                 civilians[0].showAccordingToDirection();
@@ -106,15 +146,41 @@ public class Game implements KeyboardHandler {
                 field.show();
                 break;
             case level2:
+                actualLevel=Level.level2;
                 field.deletePicture();
-                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/level2Map.png"));
+                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Levels/level2.png"));
+                field.show();
+                civilians = makeCivilians(30);
+                drawCivilians();
+                civilians[0].infect();
+                civilians[1].infect();
+                civilians[0].showAccordingToDirection();
+                civilians[1].showAccordingToDirection();
+                CollisionDetector.setCivilians(civilians);
+                level2Cycle();
                 field.show();
                 break;
-           /* case endMenu:
+            case endMenu:
+                for (int i = 0; i < civilians.length; i++) {
+                    civilians[i].deleteCivilianPic();
+                    civilians[i]=null;
+                }
                 field.deletePicture();
-                field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
+                field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/Menus/lose_menu.png"));
+                // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
                 field.show();
-            */
+                break;
+            case winMenu:
+                for (int i = 0; i < civilians.length; i++) {
+                    civilians[i].deleteCivilianPic();
+                    civilians[i]=null;
+                }
+                field.deletePicture();
+                field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/Menus/win_menu.png"));
+                // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
+                field.show();
+                break;
+
         }
 
     }
@@ -125,6 +191,16 @@ public class Game implements KeyboardHandler {
         }
     }
 
+    private boolean checkForEndLevel(){
+        boolean isAnyInfected=true;
+        for (int i = 0; i < civilians.length; i++) {
+            if (civilians[i].isInfected()){
+                isAnyInfected=false;
+            }
+        }
+        System.out.println(isAnyInfected);
+        return isAnyInfected;
+    }
 
     private void displayHealthBar(int health) {
         for (int i = 0; i <healthBar.length ; i++) {
@@ -217,31 +293,33 @@ public class Game implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
+
         if (keyboardEvent.getKey() == s.getKey()) {
             started = true;
         }
-
-        if (keyboardEvent.getKey() == right.getKey()) {
-            player.moveRight();
-        }
-
-        if (keyboardEvent.getKey() == left.getKey()) {
-            player.moveLeft();
-        }
-
-        if (keyboardEvent.getKey() == up.getKey()) {
-            player.moveUp();
-        }
-
-        if (keyboardEvent.getKey() == down.getKey()) {
-            player.moveDown();
-        }
-        if (keyboardEvent.getKey() == space.getKey()) {
-            if (bullet == null) {
-                bullet = player.shoot();
+        if(actualLevel!=Level.mainMenu&&actualLevel!=Level.endMenu) {
+            if (keyboardEvent.getKey() == right.getKey()) {
+                player.moveRight();
             }
 
+            if (keyboardEvent.getKey() == left.getKey()) {
+                player.moveLeft();
+            }
 
+            if (keyboardEvent.getKey() == up.getKey()) {
+                player.moveUp();
+            }
+
+            if (keyboardEvent.getKey() == down.getKey()) {
+                player.moveDown();
+            }
+            if (keyboardEvent.getKey() == space.getKey()) {
+                if (bullet == null) {
+                    bullet = player.shoot();
+                }
+
+
+            }
         }
     }
 
@@ -265,6 +343,7 @@ public class Game implements KeyboardHandler {
         mainMenu,
         level1,
         level2,
-        endMenu
+        endMenu,
+        winMenu
     }
 }
