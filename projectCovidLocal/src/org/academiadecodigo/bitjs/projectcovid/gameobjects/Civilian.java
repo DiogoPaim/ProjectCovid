@@ -57,10 +57,10 @@ public class Civilian {
     }
 
     public void showAccordingToDirection() {
-        if (actualPicture!=null) {
-            System.out.println(actualPicture);
+       // if (actualPicture!=null) {
+
             actualPicture.delete();
-        }
+       // }
         if (isInfected()) {
             switch (fieldPosition.getActualDirection()) {
                 case UP:

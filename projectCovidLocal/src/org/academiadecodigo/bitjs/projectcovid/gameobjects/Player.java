@@ -19,7 +19,7 @@ public class Player {
 
     public Player(Field field) {
 
-
+        this.health = 3;
         this.fieldPosition = new FieldPosition((int) Math.floor(field.getCols() / 2),
                 (int) Math.floor(field.getRows() / 2), field, Direction.UP);
         playerPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/playerLeft.png");
@@ -138,6 +138,10 @@ public class Player {
 
 
         return null;
+    }
+
+    public int getHealth(){
+        return health;
     }
 
     public FieldPosition getFieldPosition() {

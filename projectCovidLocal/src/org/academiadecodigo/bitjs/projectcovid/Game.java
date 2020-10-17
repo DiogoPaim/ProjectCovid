@@ -124,6 +124,12 @@ public class Game implements KeyboardHandler {
         }
     }
 
+    public void showHealth(){
+        if(player.getHealth() == 3){
+
+        }
+    }
+
     public Civilian[] makeCivilians(int numberOfCivilians) {
         Civilian[] newCivilians = new Civilian[numberOfCivilians];
         for (int i = 0; i < numberOfCivilians; i++) {
