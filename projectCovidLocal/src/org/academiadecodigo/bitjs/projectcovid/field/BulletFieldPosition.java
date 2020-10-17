@@ -11,8 +11,18 @@ public class BulletFieldPosition extends FieldPosition {
 
     public BulletFieldPosition(Field field, int col, int row,
                                Direction direction) {
-        super(col, row, field, direction);
 
+        super(col, row, field, direction);
+        if(col>=field.getCols()){
+            System.out.println();
+            this.bullet=new Bullet(Field.colsToX(super.getCol()-1), Field.rowsToY(super.getRow()), super.getActualDirection());
+            return;
+        }
+        if(row>=field.getRows()){
+            this.bullet=new Bullet(Field.colsToX(super.getCol()), Field.rowsToY(super.getRow()-1), super.getActualDirection());
+            return;
+
+        }
         this.bullet = new Bullet(Field.colsToX(super.getCol()), Field.rowsToY(super.getRow()), super.getActualDirection());
     }
 

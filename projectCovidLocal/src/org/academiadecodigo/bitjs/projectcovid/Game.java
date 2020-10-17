@@ -21,6 +21,7 @@ public class Game implements KeyboardHandler {
     private KeyboardEvent space;
     private KeyboardEvent s;
     private KeyboardEvent x;
+    private KeyboardEvent w;
     private BulletFieldPosition bullet;
     private Civilian[] civilians;
     private Field field;
@@ -36,7 +37,6 @@ public class Game implements KeyboardHandler {
 
     public Game() {
         this.field = new Field(25, 18);
-
         civilianFactory = new CivilianFactory(field);
         this.player = new Player(field);
         healthBar = new Picture[3];
@@ -66,6 +66,8 @@ public class Game implements KeyboardHandler {
             setLevelMapLogic(Level.betweenLevelsMenu);
         } else if (actualLevel==Level.endMenu){
             setLevelMapLogic(Level.endMenu);
+        }else if(actualLevel==Level.winMenu){
+            setLevelMapLogic(Level.winMenu );
         }
 
     }
@@ -89,9 +91,9 @@ public class Game implements KeyboardHandler {
                 showHealth();
 
                 addDelay();
-            }
-            if (player.getHealth()==0){
-                actualLevel=Level.endMenu;
+                if (player.getHealth()==0){
+                    actualLevel=Level.endMenu;
+                }
             }
             if(checkForEndLevel()){
                 setLevelMapLogic(Level.betweenLevelsMenu);
@@ -114,10 +116,11 @@ public class Game implements KeyboardHandler {
                 showHealth();
                 civilians[i].move();
                 addDelay();
+                if (player.getHealth()==0){
+                    actualLevel=Level.endMenu;
+                }
             }
-            if (player.getHealth()==0){
-                actualLevel=Level.endMenu;
-            }
+
             if(checkForEndLevel()){
                 setLevelMapLogic(Level.winMenu);
             }
@@ -131,8 +134,10 @@ public class Game implements KeyboardHandler {
     private void setLevelMapLogic(Level level) {
         switch (level) {
             case mainMenu:
+                field.init();
+                actualLevel=Level.mainMenu;
                 while (!started) {
-                    field.init();
+                   addDelay();
                 }
                 break;
             case level1:
@@ -169,7 +174,7 @@ public class Game implements KeyboardHandler {
                     civilians[i] = null;
                 }
                 field.deletePicture();
-                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Menus/win_menu.png"));
+                field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Menus/between_levels_menu.png"));
                 // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
                 field.show();
                 while (!startLvl2){
@@ -182,6 +187,7 @@ public class Game implements KeyboardHandler {
                     civilians[i].deleteCivilianPic();
                     civilians[i]=null;
                 }
+                actualLevel=Level.endMenu;
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/Menus/lose_menu.png"));
                 // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
@@ -192,6 +198,7 @@ public class Game implements KeyboardHandler {
                     civilians[i].deleteCivilianPic();
                     civilians[i]=null;
                 }
+                actualLevel=Level.winMenu;
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/Menus/win_menu.png"));
                 // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
@@ -265,7 +272,7 @@ public class Game implements KeyboardHandler {
         }
     }
 
-    public Civilian[] makeCivilians(int numberOfCivilians,int level) {
+    private Civilian[] makeCivilians(int numberOfCivilians,int level) {
         Civilian[] newCivilians = new Civilian[numberOfCivilians];
         for (int i = 0; i < numberOfCivilians; i++) {
             if (level==1) {
@@ -315,6 +322,11 @@ public class Game implements KeyboardHandler {
         x.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         x.setKey(KeyboardEvent.KEY_X);
         keyboard.addEventListener(x);
+
+        w = new KeyboardEvent();
+        w.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        w.setKey(KeyboardEvent.KEY_W);
+        keyboard.addEventListener(w);
     }
 
     @Override
@@ -327,7 +339,11 @@ public class Game implements KeyboardHandler {
 
             startLvl2=true;
         }
-        if(actualLevel!=Level.mainMenu&&actualLevel!=Level.endMenu) {
+        if (keyboardEvent.getKey()== w.getKey()){
+
+            actualLevel=Level.winMenu;
+        }
+        if(actualLevel!=Level.mainMenu&&actualLevel!=Level.endMenu && actualLevel!=Level.winMenu) {
             if (keyboardEvent.getKey() == right.getKey()) {
                 player.moveRight();
             }

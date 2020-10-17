@@ -72,7 +72,7 @@ public class CollisionDetector {
     }
 
 
-    public static Civilian checkForCivilianInRange(int range, FieldPosition position1) {
+    private static Civilian checkForCivilianInRange(int range, FieldPosition position1) {
 
         for (int i = 1; i <= range; i++) {
             if (isCivilianHere(position1.getCol() + i, position1.getRow()) != null) {
@@ -91,7 +91,7 @@ public class CollisionDetector {
         return null;
     }
 
-    public static boolean checkForPlayerInRange(int range, FieldPosition position){
+    private static boolean checkForPlayerInRange(int range, FieldPosition position){
         for (int i = 1; i <= range; i++) {
             if (isPlayerHere(position.getCol() + i, position.getRow())) {
                 return true;
@@ -110,7 +110,7 @@ public class CollisionDetector {
     }
 
 
-    public static Civilian isCivilianHere(int col, int row) {
+    private static Civilian isCivilianHere(int col, int row) {
 
         for (int i = 0; i < civilians.length; i++) {
 
@@ -120,7 +120,7 @@ public class CollisionDetector {
         }
         return null;
     }
-    public static boolean isPlayerHere(int col,int row){
+    private static boolean isPlayerHere(int col,int row){
         if (player.getFieldPosition().getCol()==col && player.getFieldPosition().getRow()== row){
             return true;
         }

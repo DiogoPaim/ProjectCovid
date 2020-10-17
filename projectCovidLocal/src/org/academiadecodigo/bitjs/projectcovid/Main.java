@@ -8,29 +8,6 @@ public class Main {
         game.init();
         game.start();
 
-
-       /* try{
-        Thread.sleep(200);}catch (Exception e){
-            System.out.println("error in thread sleep");
-        }
-        fieldPosition.moveRight();
-        try{
-            Thread.sleep(200);}catch (Exception e){
-            System.out.println("error in thread sleep");
-        }
-        fieldPosition.moveRight();
-        try{
-            Thread.sleep(200);}catch (Exception e){
-            System.out.println("error in thread sleep");
-        }
-        fieldPosition.moveUp();
-        try{
-            Thread.sleep(200);}catch (Exception e){
-            System.out.println("error in thread sleep");
-        } */
-
-
-
     }
 
 

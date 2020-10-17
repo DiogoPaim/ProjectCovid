@@ -57,7 +57,7 @@ public class Civilian {
 
     public void showAccordingToDirection() {
         if (actualPicture != null) {
-            System.out.println(actualPicture);
+
             actualPicture.delete();
       }
         if (isInfected()) {
