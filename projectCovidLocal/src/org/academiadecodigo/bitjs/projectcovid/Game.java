@@ -33,19 +33,21 @@ public class Game implements KeyboardHandler {
     private Picture[] fullHeartPics;
     private Picture[] emptyHeartPics;
     private boolean endLevelCondition;
-
+    private SoundHandler soundHandler;
 
     public Game() {
         this.field = new Field(25, 18);
         civilianFactory = new CivilianFactory(field);
         this.player = new Player(field);
         healthBar = new Picture[3];
+        soundHandler=new SoundHandler();
+
 
     }
 
-    public static void addDelay() {
+    public static void addDelay(int ms) {
         try {
-            Thread.sleep(30);
+            Thread.sleep(ms);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -69,12 +71,13 @@ public class Game implements KeyboardHandler {
         }else if(actualLevel==Level.winMenu){
             setLevelMapLogic(Level.winMenu );
         }
-
+        addDelay(30000);
+        soundHandler.closeHandler();
     }
 
     private void level1Cycle() {
 
-        System.out.println("LEVEL1CYCLE");
+
         while (actualLevel == Level.level1) {
             player.showAccordingToDirection();
             for (int i = 0; i < civilians.length; i++) {
@@ -89,8 +92,7 @@ public class Game implements KeyboardHandler {
                 }
                 CollisionDetector.checkInfections();
                 showHealth();
-
-                addDelay();
+                addDelay(30);
                 if (player.getHealth()==0){
                     actualLevel=Level.endMenu;
                 }
@@ -115,7 +117,7 @@ public class Game implements KeyboardHandler {
                 CollisionDetector.checkInfections();
                 showHealth();
                 civilians[i].move();
-                addDelay();
+                addDelay(30);
                 if (player.getHealth()==0){
                     actualLevel=Level.endMenu;
                 }
@@ -136,12 +138,21 @@ public class Game implements KeyboardHandler {
             case mainMenu:
                 field.init();
                 actualLevel=Level.mainMenu;
+                SoundHandler.playSound("mainSound");
+
+
                 while (!started) {
-                   addDelay();
+                   addDelay(50);
                 }
+
+
                 break;
             case level1:
+                //soundHandler.playSound();
                 field.deletePicture();
+                SoundHandler.getSound("mainSound").stop();
+                SoundHandler.getSound("ambientSound").setLoop(20);
+                SoundHandler.playSound("ambientSound");
                 field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Levels/level1.png"));
                 field.show();
                 civilians = makeCivilians(20,1);
@@ -155,6 +166,8 @@ public class Game implements KeyboardHandler {
                 break;
             case level2:
                 actualLevel = Level.level2;
+                SoundHandler.getSound("midMenu").stop();
+                SoundHandler.playSound("ambientSound");
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Levels/level2.png"));
                 field.show();
@@ -169,20 +182,24 @@ public class Game implements KeyboardHandler {
                 field.show();
                 break;
             case betweenLevelsMenu:
+                SoundHandler.getSound("ambientSound").stop();
+                SoundHandler.playSound("midMenu");
                 for (int i = 0; i < civilians.length; i++) {
                     civilians[i].deleteCivilianPic();
                     civilians[i] = null;
                 }
+                actualLevel=Level.betweenLevelsMenu;
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING, Field.PADDING, "resources/Menus/between_levels_menu.png"));
-                // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
+                //SoundHandler.getSound("").play();
                 field.show();
                 while (!startLvl2){
-                    addDelay();
+                    addDelay(40);
                 }
                 setLevelMapLogic(Level.level2);
                 break;
             case endMenu:
+                SoundHandler.getSound("ambientSound").stop();
                 for (int i = 0; i < civilians.length; i++) {
                     civilians[i].deleteCivilianPic();
                     civilians[i]=null;
@@ -190,17 +207,20 @@ public class Game implements KeyboardHandler {
                 actualLevel=Level.endMenu;
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/Menus/lose_menu.png"));
+                SoundHandler.getSound("gameOver").play(true);
                 // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
                 field.show();
                 break;
             case winMenu:
+                SoundHandler.getSound("ambientSound").stop();
                 for (int i = 0; i < civilians.length; i++) {
-                    civilians[i].deleteCivilianPic();
+
                     civilians[i]=null;
                 }
                 actualLevel=Level.winMenu;
                 field.deletePicture();
                 field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/Menus/win_menu.png"));
+                SoundHandler.getSound("winMenu").play(true);
                 // field.setPicture(new Picture(Field.PADDING,Field.PADDING,"resources/endMenu.png"));
                 field.show();
                 break;
@@ -222,7 +242,7 @@ public class Game implements KeyboardHandler {
                 isAnyInfected=false;
             }
         }
-        System.out.println(isAnyInfected);
+
         return isAnyInfected;
     }
 
@@ -332,18 +352,8 @@ public class Game implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-        if (keyboardEvent.getKey() == s.getKey()) {
-            started = true;
-        }
-        if (keyboardEvent.getKey()== x.getKey()){
 
-            startLvl2=true;
-        }
-        if (keyboardEvent.getKey()== w.getKey()){
-
-            actualLevel=Level.winMenu;
-        }
-        if(actualLevel!=Level.mainMenu&&actualLevel!=Level.endMenu && actualLevel!=Level.winMenu) {
+        if(actualLevel == Level.level1 || actualLevel==Level.level2) {
             if (keyboardEvent.getKey() == right.getKey()) {
                 player.moveRight();
             }
@@ -366,6 +376,17 @@ public class Game implements KeyboardHandler {
 
 
             }
+        }
+        if (keyboardEvent.getKey() == s.getKey()) {
+            started = true;
+        }
+        if (keyboardEvent.getKey()== x.getKey()){
+
+            startLvl2=true;
+        }
+        if (keyboardEvent.getKey()== w.getKey()){
+
+            actualLevel=Level.winMenu;
         }
     }
 

@@ -1,6 +1,7 @@
 package org.academiadecodigo.bitjs.projectcovid.gameobjects;
 
 import org.academiadecodigo.bitjs.projectcovid.Direction;
+import org.academiadecodigo.bitjs.projectcovid.SoundHandler;
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
@@ -22,19 +23,18 @@ public class Civilian {
     public Civilian(FieldPosition position) {
         this.fieldPosition = position;
         infected = false;
-        bootPictures();
-        showAccordingToDirection();
+
     }
 
     public void bootPictures() {
-        infectedPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedUp.png");
-        infectedPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedDown.png");
-        infectedPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedLeft.png");
-        infectedPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianInfectedRight.png");
-        civilianPictureUp = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianUp.png");
-        civilianPictureDown = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianDown.png");
-        civilianPictureLeft = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianLeft.png");
-        civilianPictureRight = new Picture(fieldPosition.getX(), fieldPosition.getY(), "resources/Images/Civilians/civilianRight.png");
+        infectedPictureUp = new Picture(0,0 , "resources/Images/Civilians/civilianInfectedUp.png");
+        infectedPictureDown = new Picture(0,0 , "resources/Images/Civilians/civilianInfectedDown.png");
+        infectedPictureLeft = new Picture(0,0, "resources/Images/Civilians/civilianInfectedLeft.png");
+        infectedPictureRight = new Picture(0,0, "resources/Images/Civilians/civilianInfectedRight.png");
+        civilianPictureUp = new Picture(0,0, "resources/Images/Civilians/civilianUp.png");
+        civilianPictureDown = new Picture(0,0, "resources/Images/Civilians/civilianDown.png");
+        civilianPictureLeft = new Picture(0,0, "resources/Images/Civilians/civilianLeft.png");
+        civilianPictureRight = new Picture(0,0, "resources/Images/Civilians/civilianRight.png");
         actualPicture = civilianPictureDown;
 
     }
@@ -49,6 +49,24 @@ public class Civilian {
 
     public void cure() {
         this.infected = false;
+        if (this instanceof CivilianGrandma){
+            SoundHandler.playSound("granny");
+            return;
+        }
+        if (this instanceof CivilianRapper){
+            SoundHandler.playSound("sandrim");
+            return;
+        }
+        if (this instanceof CivilianPolice){
+            SoundHandler.playSound("police-cure");
+            return;
+        }
+        if (this instanceof Civilian){
+            SoundHandler.playSound("mrT-cure");
+            return;
+        }
+
+
     }
 
     public void infect() {
@@ -59,11 +77,14 @@ public class Civilian {
         if (actualPicture != null) {
 
             actualPicture.delete();
-      }
+        }
+
+
         if (isInfected()) {
             switch (fieldPosition.getActualDirection()) {
                 case UP:
-                    infectedPictureUp.translate(fieldPosition.getX() - infectedPictureUp.getX(), fieldPosition.getY() - infectedPictureUp.getY());
+
+                    infectedPictureUp.translate(fieldPosition.getX()-infectedPictureUp.getX(),fieldPosition.getY()-infectedPictureUp.getY());
                     actualPicture = infectedPictureUp;
                     break;
                 case DOWN:
@@ -247,5 +268,17 @@ public class Civilian {
 
     }
 
+    public Picture getInfectedPictureUp() {
+        return infectedPictureUp;
+    }
 
+    public Picture getCivilianPictureUp() {
+        return civilianPictureUp;
+    }
+
+    @Override
+    public String toString(){
+
+        return this.getClass().getSimpleName();
+    }
 }

@@ -1,6 +1,7 @@
 package org.academiadecodigo.bitjs.projectcovid.gameobjects;
 
 import org.academiadecodigo.bitjs.projectcovid.Direction;
+import org.academiadecodigo.bitjs.projectcovid.SoundHandler;
 import org.academiadecodigo.bitjs.projectcovid.field.BulletFieldPosition;
 import org.academiadecodigo.bitjs.projectcovid.field.Field;
 import org.academiadecodigo.bitjs.projectcovid.field.FieldPosition;
@@ -32,9 +33,9 @@ public class Player {
     }
 
     public void showAccordingToDirection() {
-
+        if(playerPicture!=null) {
             playerPicture.delete();
-
+        }
         switch (fieldPosition.getActualDirection()) {
             case LEFT:
                 playerPictureLeft.translate(fieldPosition.getX()-playerPictureLeft.getX(), fieldPosition.getY()-playerPictureLeft.getY());
@@ -117,8 +118,7 @@ public class Player {
     }
 
     public BulletFieldPosition shoot() {
-        System.out.println("bullet shot");
-
+        SoundHandler.getSound("shoot").play(true);
         switch (fieldPosition.getActualDirection()) {
 
             case UP:

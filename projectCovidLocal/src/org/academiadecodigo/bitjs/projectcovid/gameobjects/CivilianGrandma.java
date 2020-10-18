@@ -7,20 +7,21 @@ public class CivilianGrandma extends Civilian{
 
     public CivilianGrandma(FieldPosition fieldPosition){
         super(fieldPosition);
+
     }
 
 
 
     @Override
     public void bootPictures(){
-        super.setInfectedPictureUp(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaUpInfected.png"));
-        super.setInfectedPictureDown(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaDownInfected.png"));
-        super.setInfectedPictureLeft(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaLeftInfected.png"));
-        super.setInfectedPictureRight(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaRightInfected.png"));
-        super.setCivilianPictureUp(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaUp.png"));
-        super.setCivilianPictureDown(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaDown.png"));
-        super.setCivilianPictureLeft(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaLeft.png"));
-        super.setCivilianPictureRight(new Picture(super.getFieldPosition().getX(), super.getFieldPosition().getY(), "resources/Images/CivilianGrandma/grandmaRight.png"));
+        super.setInfectedPictureUp(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaUpInfected.png"));
+        super.setInfectedPictureDown(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaDownInfected.png"));
+        super.setInfectedPictureLeft(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaLeftInfected.png"));
+        super.setInfectedPictureRight(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaRightInfected.png"));
+        super.setCivilianPictureUp(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaUp.png"));
+        super.setCivilianPictureDown(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaDown.png"));
+        super.setCivilianPictureLeft(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaLeft.png"));
+        super.setCivilianPictureRight(new Picture(0,0, "resources/Images/CivilianGrandma/grandmaRight.png"));
 
         super.setActualPicture(super.getCivilianPictureDown());
     }

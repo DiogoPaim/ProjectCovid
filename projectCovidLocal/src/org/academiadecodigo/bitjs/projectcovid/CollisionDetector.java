@@ -27,13 +27,18 @@ public class CollisionDetector {
                 if (checkForPlayerInRange(1,civilians[i].getFieldPosition())){
                     if(player.getPlayerImmunity()==0) {
                         player.setHealth(player.getHealth() - 1);
+                        SoundHandler.playSound("loseHealth");
                         player.setPlayerImmunity(3);
                     }
                 }
                 Civilian civilianToInfect = checkForCivilianInRange(1, civilians[i].getFieldPosition());
                 if (civilianToInfect != null) {
+                    double random = Math.random();
+                    if(random<0.5){ SoundHandler.playSound("sneeze");
+                    }else {SoundHandler.playSound("cough");}
                     civilianToInfect.infect();
                 }
+
             }
         }
     }
@@ -47,7 +52,6 @@ public class CollisionDetector {
                 if (bulletFieldPosition.equals(col, row)) {
                     civilians[j].cure();
                     civilians[j].showAccordingToDirection();
-                    System.out.println("A civilian was cured");
                     bulletFieldPosition.getBullet().getBullet().delete();
                     return true;
                 }
